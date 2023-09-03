@@ -22,7 +22,7 @@ const RequestedLPN = ({ item, onRemove }) => {
 
   return (
     <div
-      className={`bg-blue-400 border-3 text-white p-1 rounded-xl p-3 shadow-lg shadow-gray-200 w-32 rounded-lg ${
+      className={`bg-blue-400 border-3 text-white p-1 text-center rounded-xl p-3 shadow-lg shadow-gray-200 w-32 rounded-lg ${
         isHovered ? "transform scale-105" : ""
       }`}
       onMouseEnter={handleMouseEnter}
@@ -31,7 +31,7 @@ const RequestedLPN = ({ item, onRemove }) => {
       {item.LPN}
       {isHovered && (
         <button
-          className="bg-red-500 text-white rounded-full px-2 py-1 absolute top-0 right-0 m-2"
+          className="bg-red-500 text-white rounded-full  absolute top-0 right-0 mr-1 mt-1 w-4 text-center h-5"
           onClick={handleRemoveClick}
         >
           X

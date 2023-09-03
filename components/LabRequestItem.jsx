@@ -1,20 +1,16 @@
+
 import React from "react";
 
 const LabRequestItem = ({ labRequests }) => {
-  console.log("items", labRequests);
+  console.log('labRequest', labRequests)
   return (
     <ul>
       {labRequests &&
-        labRequests.map((labRequest) => (
-          <li key={labRequest.id}>
-            <h3>{labRequest.title}</h3>
+        labRequests.map((item, index) => (
+          <li key={`${item.id}-${index}`}>
+            <h3>{item.title}</h3>
             <ul>
-              {labRequest.items &&
-                labRequest.items.map((item) => (
-                  <li key={item.id}>
-                    <span>LPN: {item.LPN}</span>
-                  </li>
-                ))}
+            <span>LPN: {item.LPN}</span>
             </ul>
           </li>
         ))}
