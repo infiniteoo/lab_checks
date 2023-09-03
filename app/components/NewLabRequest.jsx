@@ -42,7 +42,10 @@ const NewLabRequest = ({ formattedDate }) => {
       <div className="flex flex-col items-center">
         <div className="flex flex-col items-center">
           <h2 className="text-xl font-semibold">New Lab Request</h2>
-          <p className="text-gray-600 mb-4">Last updated: {formattedDate}</p>
+          {fileSelected && (
+            <p className="text-gray-600 mb-4">Last updated: {formattedDate}</p>
+            )}
+          
         </div>
 
         {!fileSelected ? (
@@ -73,7 +76,9 @@ const NewLabRequest = ({ formattedDate }) => {
           <AdditionalLPNs setCsvData={setCsvData} csvData={csvData} />
         )}
       </div>
-      {fileSelected && <SubmitLabRequest csvData={csvData} />}
+      {fileSelected && (
+        <SubmitLabRequest setCsvData={setCsvData} csvData={csvData} setFileSelected={setFileSelected} />
+      )}
     </div>
   );
 };

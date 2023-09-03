@@ -1,12 +1,15 @@
 import React from "react";
 import axios from "axios"; // Make sure to import Axios
 import { toast } from "react-toastify"; // You can use React Toastify for displaying messages
+import "react-toastify/dist/ReactToastify.css";
 
-const SubmitLabRequest = ({ csvData }) => {
+const SubmitLabRequest = ({ csvData, setCsvData, setFileSelected }) => {
   const handleSubmit = async () => {
     try {
       // Make a POST request to the API with the csvData
       await axios.post("http://localhost:8888/api/lab-request", csvData);
+      setCsvData([]); // Clear the csvData
+      setFileSelected(false);
 
       // Display a success message
       toast.success("Lab request submitted successfully!");
@@ -26,6 +29,7 @@ const SubmitLabRequest = ({ csvData }) => {
       >
         Submit Lab Request
       </button>
+      
     </div>
   );
 };
