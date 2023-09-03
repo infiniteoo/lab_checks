@@ -19,7 +19,7 @@ const AdditionalLPNs = ({ csvData, setCsvData }) => {
     const updatedData = [...csvData, ...newLPNObjects];
   
     // Set the updated data back to csvData
-    console.log('updatedData', updatedData)
+   
     setCsvData(updatedData);
   
     // Clear the inputValue

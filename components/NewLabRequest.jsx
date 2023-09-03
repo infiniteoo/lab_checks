@@ -5,7 +5,7 @@ import RequestedLPN from "./RequestedLPN";
 import AdditionalLPNs from "./AdditionalLPNs";
 import SubmitLabRequest from "./SubmitLabRequest";
 
-const NewLabRequest = ({ formattedDate }) => {
+const NewLabRequest = ({ formattedDate, fetchLabRequests }) => {
   const [csvData, setCsvData] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [fileSelected, setFileSelected] = useState(false); // Track if a file is selected
@@ -16,10 +16,10 @@ const NewLabRequest = ({ formattedDate }) => {
   };
 
   const updatedCsvData = csvData.filter((row) => {
-    console.log(row.LPN);
+  
     const lpnValue = row.LPN;
     if (lpnValue && lpnValue.toString().startsWith("L0")) {
-      console.log('found one')
+     
       return false; // Exclude this object
     }
     return true; // Include this object
@@ -33,8 +33,11 @@ const NewLabRequest = ({ formattedDate }) => {
       setErrorMessage("Please select a CSV file.");
       return;
     }
+
     
-    
+   
+      
+   
 
     Papa.parse(file, {
       header: true, // If your CSV file has a header row
@@ -58,10 +61,11 @@ const NewLabRequest = ({ formattedDate }) => {
     });
 
     setCsvData(updatedCsvData);
+    /* fetchLabRequests(); */
   };
 
   return (
-    <div className="w-1/2 mx-auto p-6 bg-white shadow-md rounded-lg mt-10">
+    <div className="w-1/3 mx-auto p-6 bg-white shadow-md rounded-lg  ">
       <div className="flex flex-col items-center">
         <div className="flex flex-col items-center">
           <h2 className="text-xl font-semibold">New Lab Request</h2>

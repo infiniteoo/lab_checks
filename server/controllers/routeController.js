@@ -1,13 +1,33 @@
-// controllers/userController.js
-
+const LabRequest = require("../models/labRequest"); // Import the LabRequest model
 
 exports.receiveLabRequest = (req, res) => {
-    // Retrieve user data from a database or other source
-    console.log('receiveLabRequest, req.body: ', req.body);
-    // Send the user data back to the client
-    res.json(req.body);
-    
-  
-  
-  };
-  
+  // Create a new instance of the LabRequest model with req.body data
+  const newLabRequest = new LabRequest({
+    items: req.body,
+  });
+
+  // Save the newLabRequest to the database
+  newLabRequest
+    .save()
+    .then((result) => {
+      console.log("Lab request saved successfully:", result);
+      res.json({ message: "Lab request saved successfully" });
+    })
+    .catch((error) => {
+      console.error("Error saving lab request:", error);
+      res.status(500).json({ error: "Failed to save lab request" });
+    });
+};
+
+exports.sendLabRequests = (req, res) => {
+  // retrieve everything from the lab requests collection
+  LabRequest.find()
+    .then((labRequests) => {
+      console.log("Lab requests retrieved successfully:", labRequests);
+      res.json(labRequests);
+    })
+    .catch((error) => {
+      console.error("Error retrieving lab requests:", error);
+      res.status(500).json({ error: "Failed to retrieve lab requests" });
+    });
+};
