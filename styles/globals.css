@@ -25,3 +25,5 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+/* Add this CSS to your global CSS file or a component-specific CSS file */
+
