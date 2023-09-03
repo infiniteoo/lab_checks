@@ -7,9 +7,8 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 app.use(cors());
 
-// Connect to the database (if using one)
-const url =
-  "mongodb+srv://newuser:Uys!BywmO!2i7ecZ@cluster0.5jndr.mongodb.net/approval_requests";
+
+
 // Enable CORS for all routes
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*"); // Adjust this based on your requirements
@@ -34,7 +33,7 @@ app.use("/api", mainRoutes);
 // More route imports...
 
 mongoose
-  .connect(url, {
+  .connect(process.env.REACT_APP_LOCAL_MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

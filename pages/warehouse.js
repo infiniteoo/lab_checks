@@ -6,6 +6,7 @@ import axios from "axios";
 import LabCheckTracker from "../components/LabCheckTracker";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { set } from "mongoose";
 
 export default function Warehouse() {
   const formattedDate = format(new Date(), "HH:mm:ss MM/dd/yyyy");
@@ -24,6 +25,12 @@ export default function Warehouse() {
   useEffect(() => {
     fetchLabRequests();
   }, []);
+
+  useEffect(() => {
+    fetchLabRequests();
+  }, [
+    setLabRequests
+  ]);
 
    
 
@@ -46,7 +53,7 @@ export default function Warehouse() {
       </div>
       <div className="flex w-full flex-row mt-5">
         <NewLabRequest formattedDate={formattedDate} fetchLabRequests={fetchLabRequests} />
-        <LabCheckTracker />
+        <LabCheckTracker labRequests={labRequests} setLabRequests={setLabRequests} />
       </div>
       <div>
         <ToastContainer position="top-right" autoClose={5000} />
