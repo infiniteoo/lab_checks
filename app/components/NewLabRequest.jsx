@@ -4,7 +4,7 @@ import Papa from "papaparse"; // You need to install the papaparse library
 import RequestedLPN from "./RequestedLPN";
 import AdditionalLPNs from "./AdditionalLPNs";
 import SubmitLabRequest from "./SubmitLabRequest";
-import { format } from "date-fns"; // Import date-fns format function
+
 
 const NewLabRequest = ({ formattedDate }) => {
   const [csvData, setCsvData] = useState([]);
@@ -63,7 +63,7 @@ const NewLabRequest = ({ formattedDate }) => {
         )}
         {errorMessage && <p className="text-red-500 mt-2">{errorMessage}</p>}
         {fileSelected && (
-          <ul className="mt-1 flex flex-wrap justify-center">
+          <ul className="mt-1 flex flex-wrap justify-center items-stretch">
             {csvData.map((row, index) => (
               <li key={index} className="mb-1 mr-1">
                 <RequestedLPN item={row} />

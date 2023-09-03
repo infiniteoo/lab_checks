@@ -14,8 +14,8 @@ export default function Home() {
             <h1 className="text-5xl font-bold text-right">
               Welcome to the <span className="text-blue-500">Labratory</span>
             </h1>
-            <p className="text-lg text-gray-500 text-left mt-2 border-2 border-gray-300 text-bold rounded p-1 shadow-sm shadow-blue-300">
-              upload a csv file to get started
+            <p className="text-lg text-gray-500 text-center mt-2 border-2 border-gray-300 text-bold rounded p-1 shadow-sm shadow-blue-300">
+              automated lab approval requests
             </p>
           </div>
           <img src="./scientist.svg" alt="lab" className="w-1/2 h-40" />
