@@ -1,8 +1,10 @@
-
 import React from "react";
 
-const LabRequestItem = ({ labRequests }) => {
-  console.log('labRequest', labRequests)
+const LabRequestExpandedItem = ({ labRequests }) => {
+  console.log("labRequest", labRequests);
+  
+
+  
   return (
     <ul>
       {labRequests &&
@@ -10,7 +12,7 @@ const LabRequestItem = ({ labRequests }) => {
           <li key={`${item.id}-${index}`}>
             <h3>{item.title}</h3>
             <ul>
-            <span>LPN: {item.LPN}</span>
+              <span>LPN: {item.LPN}</span>
             </ul>
           </li>
         ))}
@@ -18,4 +20,4 @@ const LabRequestItem = ({ labRequests }) => {
   );
 };
 
-export default LabRequestItem;
+export default LabRequestExpandedItem;
