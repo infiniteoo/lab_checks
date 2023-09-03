@@ -5,7 +5,7 @@ const router = express.Router();
 const routeController = require('../controllers/routeController');
 
 // Define routes and their corresponding controller actions
-router.get('/labRequest', routeController.receiveLabRequest);
+router.post('/lab-request', routeController.receiveLabRequest);
 // More routes...
 
 module.exports = router;

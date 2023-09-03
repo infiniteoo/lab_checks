@@ -1,10 +1,13 @@
-import CSVReader from "./components/CSVReader";
+
+import NewLabRequest from "./components/NewLabRequest";
+import { format } from "date-fns"; // Import date-fns format function
 import LabCheckTracker from "./components/LabCheckTracker";
 
 export default function Home() {
+  const formattedDate = format(new Date(), "HH:mm:ss MM/dd/yyyy");
   return (
     <>
-      <main className="flex min-h-screen flex-col items-center justify-start p-24">
+      <div className="flex min-h-screen flex-col items-center justify-start p-24">
         <div className="flex flex-row items-center justify-center">
           <div className="flex flex-col items-left justify-center">
             <h1 className="text-5xl font-bold text-right">
@@ -17,10 +20,10 @@ export default function Home() {
           <img src="./scientist.svg" alt="lab" className="w-1/2 h-40" />
         </div>
         <div className="flex w-3/4 flex-row items-center justify-center">
-          <CSVReader />
+          <NewLabRequest formattedDate={formattedDate} />
           <LabCheckTracker />
         </div>
-      </main>
+      </div>
     </>
   );
 }
