@@ -5,11 +5,25 @@ import RequestedLPN from "./RequestedLPN";
 import AdditionalLPNs from "./AdditionalLPNs";
 import SubmitLabRequest from "./SubmitLabRequest";
 
-
 const NewLabRequest = ({ formattedDate }) => {
   const [csvData, setCsvData] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [fileSelected, setFileSelected] = useState(false); // Track if a file is selected
+
+  const onRemove = (item) => {
+    setCsvData(csvData.filter((row) => row.LPN !== item.LPN));
+    
+  };
+
+  const updatedCsvData = csvData.filter((row) => {
+    console.log(row.LPN);
+    const lpnValue = row.LPN;
+    if (lpnValue && lpnValue.toString().startsWith("L0")) {
+      console.log('found one')
+      return false; // Exclude this object
+    }
+    return true; // Include this object
+  });
 
   const handleFileUpload = (e) => {
     e.preventDefault();
@@ -19,6 +33,8 @@ const NewLabRequest = ({ formattedDate }) => {
       setErrorMessage("Please select a CSV file.");
       return;
     }
+    
+    
 
     Papa.parse(file, {
       header: true, // If your CSV file has a header row
@@ -28,13 +44,20 @@ const NewLabRequest = ({ formattedDate }) => {
         if (result.errors.length > 0) {
           setErrorMessage("Error parsing CSV file. Please check the format.");
         } else {
-          console.log(result.data);
-          setCsvData(result.data);
+          // Filter out LPNs that start with "L0"
+          const filteredData = result.data.filter((row) => {
+            return !row.LPN || !row.LPN.toString().startsWith("L0");
+          });
+  
+          console.log(filteredData);
+          setCsvData(filteredData);
           setErrorMessage("");
           setFileSelected(true); // Set fileSelected to true
         }
       },
     });
+
+    setCsvData(updatedCsvData);
   };
 
   return (
@@ -44,8 +67,7 @@ const NewLabRequest = ({ formattedDate }) => {
           <h2 className="text-xl font-semibold">New Lab Request</h2>
           {fileSelected && (
             <p className="text-gray-600 mb-4">Last updated: {formattedDate}</p>
-            )}
-          
+          )}
         </div>
 
         {!fileSelected ? (
@@ -66,7 +88,7 @@ const NewLabRequest = ({ formattedDate }) => {
           <ul className="mt-1 flex flex-wrap justify-center items-stretch">
             {csvData.map((row, index) => (
               <li key={index} className="mb-1 mr-1">
-                <RequestedLPN item={row} />
+                <RequestedLPN item={row} onRemove={onRemove} />
               </li>
             ))}
           </ul>
@@ -77,7 +99,11 @@ const NewLabRequest = ({ formattedDate }) => {
         )}
       </div>
       {fileSelected && (
-        <SubmitLabRequest setCsvData={setCsvData} csvData={csvData} setFileSelected={setFileSelected} />
+        <SubmitLabRequest
+          setCsvData={setCsvData}
+          csvData={csvData}
+          setFileSelected={setFileSelected}
+        />
       )}
     </div>
   );
