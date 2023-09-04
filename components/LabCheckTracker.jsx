@@ -70,53 +70,60 @@ const LabCheckTracker = ({ labRequests }) => {
             }
 
             return (
-              
-                <li
-                  key={`${labRequest._id}`}
-                  className={`border-2 rounded  p-2 text-xl cursor-pointer text-black`}
-                  // Apply the background color
-                  
+              <li
+                key={`${labRequest._id}`}
+                className={`border-2 rounded  p-2 text-xl cursor-pointer text-black`}
+                // Apply the background color
+              >
+                <div
+                  className="flex flex-row justify-between"
+                  onClick={() => toggleExpand(labRequest._id)}
                 >
-                  <div className="flex flex-row justify-between"
-                  onClick={() => toggleExpand(labRequest._id)}>
-                    <div className="flex flex-col ">
-                      <h3 className="items-left text-xl    ">
-                        <span className="font-bold">
-                          REQUEST #{index + 1} |
-                        </span>{" "}
-                        Order #: {labRequest.orderNumber}
-                      </h3>
-                      <h3 className="items-left">
-                        Submitted: {labRequest.dateCreated}
-                      </h3>
-                    </div>
-                    <div className="flex flex-col">
-                      <h3
-                        style={{ backgroundColor }}
-                        className="text-white text-right rounded p-1 items-right text-sm text-bold"
-                      >
-                        Requested:{" "}
-                        <span className="text-bold">
-                          {getTimeAgo(labRequest.dateCreated)}{" "}
-                        </span>
-                      </h3>
-                      <div
-                        style={{ backgroundColor: statusBackgroundColor }}
-                        className="text-right text-sm rounded p-1"
-                      >
-                        <p>Status: {statusHighlight}</p>
-                      </div>
+                  <div className="flex flex-col">
+                    <h3 className="items-left text-xl">
+                      <span className="font-bold">REQUEST #{index + 1} |</span>{" "}
+                      Order #: {labRequest.orderNumber}
+                    </h3>
+                    <h3 className="items-left">
+                      Submitted: {labRequest.dateCreated}
+                    </h3>
+                    <h3 className="items-left">
+                      Shipment:{" "}
+                      {labRequest.items[0]["Shipment\nShipment Line\n\n"]}
+                    </h3>
+                    <h3 className="items-left">
+                      Load: {labRequest.items[0]["Load\nStop\n\n"]}
+                    </h3>
+                    <h3 className="items-left">
+                      Door: {labRequest.items[0].Location}
+                    </h3>
+                  </div>
+                  <div className="flex flex-col">
+                    <h3
+                      style={{ backgroundColor }}
+                      className="text-white text-right rounded p-1 items-right text-sm text-bold"
+                    >
+                      Requested:{" "}
+                      <span className="text-bold">
+                        {getTimeAgo(labRequest.dateCreated)}{" "}
+                      </span>
+                    </h3>
+                    <div
+                      style={{ backgroundColor: statusBackgroundColor }}
+                      className="text-right text-sm rounded p-1"
+                    >
+                      <p>Status: {statusHighlight}</p>
                     </div>
                   </div>
+                </div>
 
-                  {expanded[labRequest._id] && (
-                    <LabRequestExpandedItem
-                      labRequests={labRequest.items}
-                      labRequest={labRequest}
-                    />
-                  )}
-                </li>
-              
+                {expanded[labRequest._id] && (
+                  <LabRequestExpandedItem
+                    labRequests={labRequest.items}
+                    labRequest={labRequest}
+                  />
+                )}
+              </li>
             );
           })}
       </ul>
