@@ -4,22 +4,21 @@ import Papa from "papaparse"; // You need to install the papaparse library
 import RequestedLPN from "./RequestedLPN";
 import AdditionalLPNs from "./AdditionalLPNs";
 import SubmitLabRequest from "./SubmitLabRequest";
+import EnterOrderNumber from "./EnterOrderNumber";
 
 const NewLabRequest = ({ formattedDate, fetchLabRequests }) => {
   const [csvData, setCsvData] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [fileSelected, setFileSelected] = useState(false); // Track if a file is selected
+  const [orderNumber, setOrderNumber] = useState("");
 
   const onRemove = (item) => {
     setCsvData(csvData.filter((row) => row.LPN !== item.LPN));
-    
   };
 
   const updatedCsvData = csvData.filter((row) => {
-  
     const lpnValue = row.LPN;
     if (lpnValue && lpnValue.toString().startsWith("L0")) {
-     
       return false; // Exclude this object
     }
     return true; // Include this object
@@ -33,11 +32,10 @@ const NewLabRequest = ({ formattedDate, fetchLabRequests }) => {
       setErrorMessage("Please select a CSV file.");
       return;
     }
-
-    
-   
-      
-   
+    if (!orderNumber) {
+      setErrorMessage("Please enter an order number first.");
+      return;
+    }
 
     Papa.parse(file, {
       header: true, // If your CSV file has a header row
@@ -51,7 +49,7 @@ const NewLabRequest = ({ formattedDate, fetchLabRequests }) => {
           const filteredData = result.data.filter((row) => {
             return !row.LPN || !row.LPN.toString().startsWith("L0");
           });
-  
+
           console.log(filteredData);
           setCsvData(filteredData);
           setErrorMessage("");
@@ -70,13 +68,25 @@ const NewLabRequest = ({ formattedDate, fetchLabRequests }) => {
         <div className="flex flex-col items-center">
           <h2 className="text-xl font-semibold">New Lab Request</h2>
           {fileSelected && (
-            <p className="text-gray-600 mb-4">Last updated: {formattedDate}</p>
+            <>
+              <p className="text-gray-600">
+                Last updated: {formattedDate}
+              </p>
+              <p className="text-gray-600 text-bold text-xl">
+                Order number: <span className="text-blue-600">{orderNumber}</span>
+              </p>
+            </>
           )}
         </div>
-
+        {!fileSelected && (
+          <EnterOrderNumber
+            orderNumber={orderNumber}
+            setOrderNumber={setOrderNumber}
+          />
+        )}
         {!fileSelected ? (
-          <label className="w-full py-2 px-4 border rounded focus:outline-none focus:ring focus:border-blue-300 cursor-pointer">
-            <span className="text-gray-600">Choose CSV file</span>
+          <label className="w-1/4 py-2 px-4 border rounded focus:outline-none focus:ring focus:border-blue-300 cursor-pointer mt-2 bg-green-500 text-center">
+            <span className="text-white">Open CSV file</span>
             <input
               type="file"
               accept=".csv"
@@ -107,6 +117,7 @@ const NewLabRequest = ({ formattedDate, fetchLabRequests }) => {
           setCsvData={setCsvData}
           csvData={csvData}
           setFileSelected={setFileSelected}
+          orderNumber={orderNumber}
         />
       )}
     </div>

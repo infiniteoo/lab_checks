@@ -3,11 +3,17 @@ import axios from "axios"; // Make sure to import Axios
 import { toast } from "react-toastify"; // You can use React Toastify for displaying messages
 import "react-toastify/dist/ReactToastify.css";
 
-const SubmitLabRequest = ({ csvData, setCsvData, setFileSelected }) => {
+const SubmitLabRequest = ({ csvData, setCsvData, setFileSelected, orderNumber }) => {
   const handleSubmit = async () => {
     try {
+      // Add new entry to csvData key "orderNumber" value orderNumber
+      csvData.forEach((item) => {
+        item.orderNumber = orderNumber;
+      });
+      console.log("csvData", csvData);
+      
       // Make a POST request to the API with the csvData
-      await axios.post("http://localhost:8888/api/lab-request", csvData);
+      await axios.post("http://localhost:8888/api/lab-requests", csvData);
       setCsvData([]); // Clear the csvData
       setFileSelected(false);
 
