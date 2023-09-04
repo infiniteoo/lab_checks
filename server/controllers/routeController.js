@@ -6,6 +6,8 @@ exports.receiveLabRequest = (req, res) => {
   const newLabRequest = new LabRequest({
     items: req.body,
     orderNumber: req.body[0].orderNumber,
+   
+
 
   });
 

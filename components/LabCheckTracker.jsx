@@ -33,13 +33,35 @@ const LabCheckTracker = ({ labRequests }) => {
         {labRequests &&
           labRequests.map((labRequest, index) => {
             const timeAgo = getTimeAgoInMinutes(labRequest.dateCreated); // Replace with your getTimeAgo function
+            let statusBackgroundColor = "";
+            let statusHighlight = "";
+
+            // Determine background color based on labRequest.status
+            switch (labRequest.status) {
+              case "Pending":
+                statusBackgroundColor = "lightgray";
+                statusHighlight = "Pending";
+                break;
+              case "Approved":
+                statusBackgroundColor = "lightgreen";
+                statusHighlight = "Approved";
+                break;
+              case "Denied":
+                statusBackgroundColor = "red";
+                statusHighlight = "Denied";
+                break;
+              default:
+                statusBackgroundColor = "gray";
+                statusHighlight = labRequest.status;
+            }
             let backgroundColor = "";
 
             // Determine background color based on timeAgo
             if (timeAgo > 60) {
               backgroundColor = "red";
             } else if (timeAgo >= 30) {
-              backgroundColor = "yellow";
+              backgroundColor = "orange";
+                
             } else {
               backgroundColor = "green";
             }
@@ -53,8 +75,9 @@ const LabCheckTracker = ({ labRequests }) => {
               >
                 <div className="flex flex-row justify-between">
                   <div className="flex flex-col ">
-                    <h3 className="items-left text-xl font-bold   ">
-                      REQUEST #{index + 1}
+                    <h3 className="items-left text-xl    ">
+                      <span className="font-bold">REQUEST #{index + 1} |</span>{" "}
+                      Order #: {labRequest.orderNumber}
                     </h3>
                     <h3 className="items-left">
                       Submitted: {labRequest.dateCreated}
@@ -70,6 +93,12 @@ const LabCheckTracker = ({ labRequests }) => {
                         {getTimeAgo(labRequest.dateCreated)}{" "}
                       </span>
                     </h3>
+                    <div
+                      style={{ backgroundColor: statusBackgroundColor }}
+                      className="text-right text-sm rounded p-1"
+                    >
+                      <p>Status: {statusHighlight}</p>
+                    </div>
                   </div>
                 </div>
                 {expanded[labRequest.id] && (
