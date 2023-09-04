@@ -1,7 +1,5 @@
-
-
 import React, { useState } from "react";
-
+// add a key to the object
 const Popup = ({ item, showPopup, mouseX, mouseY }) => {
   const popupStyle = {
     display: showPopup ? "block" : "none",
@@ -16,7 +14,6 @@ const Popup = ({ item, showPopup, mouseX, mouseY }) => {
     boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.2)",
     zIndex: 999,
     color: "black",
-  
   };
 
   const tableStyle = {
@@ -41,7 +38,9 @@ const Popup = ({ item, showPopup, mouseX, mouseY }) => {
   };
 
   const renderTable = () => {
-    const filteredItems = Object.entries(item).filter(([, value]) => value !== null && value !== undefined);
+    const filteredItems = Object.entries(item).filter(
+      ([, value]) => value !== null && value !== undefined
+    );
 
     const keys = filteredItems.map(([key]) => key);
     const values = filteredItems.map(([, value]) => value);
@@ -78,7 +77,13 @@ const Popup = ({ item, showPopup, mouseX, mouseY }) => {
   return <div style={popupStyle}>{renderTable()}</div>;
 };
 
-const RequestedLPN = ({ item, onRemove, requestView, backgroundColor }) => {
+const RequestedLPN = ({
+  item,
+  onRemove,
+  requestView,
+  backgroundColor,
+  labRequest,
+}) => {
   const [isHovered, setIsHovered] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [mouseX, setMouseX] = useState(0);
@@ -120,13 +125,20 @@ const RequestedLPN = ({ item, onRemove, requestView, backgroundColor }) => {
       {item.LPN}
       {isHovered && !requestView && (
         <button
+          key={labRequest._id}
           className="bg-red-500 text-white rounded-full absolute top-0 right-0 mr-1 mt-1 w-4 text-center h-5"
           onClick={handleRemoveClick}
         >
           X
         </button>
       )}
-      <Popup item={item} showPopup={showPopup} mouseX={mouseX} mouseY={mouseY} />
+      <Popup
+        item={item}
+        showPopup={showPopup}
+        mouseX={mouseX}
+        mouseY={mouseY}
+        key={labRequest._id}
+      />
     </div>
   );
 };

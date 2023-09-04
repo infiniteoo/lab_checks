@@ -1,7 +1,7 @@
 import React from "react";
 import RequestedLPN from "./RequestedLPN";
 
-const LabRequestExpandedItem = ({ labRequests }) => {
+const LabRequestExpandedItem = ({ labRequests, labRequest }) => {
   return (
     <div className="flex flex-col items-center">
       <ul className="mt-2 flex flex-wrap justify-center items-stretch">
@@ -34,6 +34,8 @@ const LabRequestExpandedItem = ({ labRequests }) => {
                   item={item}
                   requestView={true}
                   backgroundColor={backgroundColor}
+                  labRequest={labRequest}
+                  key={`${labRequest._id}-${index}`}
                 />
               </li>
             );

@@ -36,10 +36,9 @@ export default function Warehouse() {
 
   // Periodically check for updates
   useEffect(() => {
-    
     const interval = setInterval(() => {
       fetchLabRequests();
-    }, 5000); // 5 minutes (adjust the interval as needed)
+    }, 30000); // 5 minutes (adjust the interval as needed)
 
     // Cleanup the interval on unmount
     return () => clearInterval(interval);
