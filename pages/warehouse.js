@@ -29,11 +29,22 @@ export default function Warehouse() {
 
   useEffect(() => {
     if (labRequestsUpdated === true) {
-      console.log("LabRequests state has been updated", labRequests);
+      
       // Reset the labRequestsUpdated state variable
       setLabRequestsUpdated(false);
     }
   }, [labRequests, labRequestsUpdated]);
+
+  // Periodically check for updates
+  useEffect(() => {
+    console.log("automatically checking for updates...")
+    const interval = setInterval(() => {
+      fetchLabRequests();
+    }, 5000); // 5 minutes (adjust the interval as needed)
+
+    // Cleanup the interval on unmount
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-start p-12">
