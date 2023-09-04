@@ -6,8 +6,9 @@ const Popup = ({ item, showPopup, mouseX, mouseY }) => {
   const popupStyle = {
     display: showPopup ? "block" : "none",
     position: "fixed",
-    top: `${mouseY - 750}px`,
-    left: `${mouseX + 1}px`,
+    top: "50%", // Center vertically
+    left: "50%", // Center horizontally
+    transform: "translate(-50%, -50%)", // Center both vertically and horizontally
     backgroundColor: "white",
     border: "1px solid #ccc",
     padding: "10px",
@@ -15,6 +16,7 @@ const Popup = ({ item, showPopup, mouseX, mouseY }) => {
     boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.2)",
     zIndex: 999,
     color: "black",
+  
   };
 
   const tableStyle = {
