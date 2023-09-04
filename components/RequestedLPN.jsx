@@ -1,14 +1,86 @@
+
+
 import React, { useState } from "react";
+
+const Popup = ({ item, showPopup, mouseX, mouseY }) => {
+  const popupStyle = {
+    display: showPopup ? "block" : "none",
+    position: "fixed",
+    top: `${mouseY - 750}px`,
+    left: `${mouseX + 1}px`,
+    backgroundColor: "white",
+    border: "1px solid #ccc",
+    padding: "10px",
+    borderRadius: "4px",
+    boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.2)",
+    zIndex: 999,
+    color: "black",
+  };
+
+  const tableStyle = {
+    width: "100%",
+    borderCollapse: "collapse",
+    marginTop: "10px",
+  };
+
+  const thStyle = {
+    backgroundColor: "#f2f2f2",
+    padding: "8px",
+    textAlign: "left",
+  };
+
+  const tdStyle = {
+    padding: "8px",
+    borderBottom: "1px solid #ddd",
+  };
+
+  const keyStyle = {
+    fontWeight: "bold",
+  };
+
+  const renderTable = () => {
+    const filteredItems = Object.entries(item).filter(([, value]) => value !== null && value !== undefined);
+
+    const keys = filteredItems.map(([key]) => key);
+    const values = filteredItems.map(([, value]) => value);
+
+    const numCols = 4;
+    const numRows = Math.ceil(keys.length / numCols);
+
+    return (
+      <table style={tableStyle}>
+        <tbody>
+          {[...Array(numRows)].map((_, rowIdx) => (
+            <tr key={rowIdx}>
+              {[...Array(numCols)].map((_, colIdx) => {
+                const keyIdx = rowIdx * numCols + colIdx;
+                const key = keys[keyIdx];
+                const value = values[keyIdx];
+
+                return (
+                  <React.Fragment key={key}>
+                    <td style={thStyle}>
+                      <span style={keyStyle}>{key}:</span>
+                    </td>
+                    <td style={tdStyle}>{value}</td>
+                  </React.Fragment>
+                );
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    );
+  };
+
+  return <div style={popupStyle}>{renderTable()}</div>;
+};
 
 const RequestedLPN = ({ item, onRemove, requestView, backgroundColor }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
-
-  if (requestView === "true") {
-    let colorToUse = backgroundColor;
-  } else {
-    let colorToUse = "blue";
-  }
+  const [mouseX, setMouseX] = useState(0);
+  const [mouseY, setMouseY] = useState(0);
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -16,6 +88,7 @@ const RequestedLPN = ({ item, onRemove, requestView, backgroundColor }) => {
 
   const handleMouseLeave = () => {
     setIsHovered(false);
+    setShowPopup(false);
   };
 
   const handleRemoveClick = () => {
@@ -26,6 +99,11 @@ const RequestedLPN = ({ item, onRemove, requestView, backgroundColor }) => {
     setShowPopup(!showPopup);
   };
 
+  const handleMouseMove = (e) => {
+    setMouseX(e.pageX);
+    setMouseY(e.pageY);
+  };
+
   return (
     <div
       style={{ backgroundColor: backgroundColor }}
@@ -34,21 +112,19 @@ const RequestedLPN = ({ item, onRemove, requestView, backgroundColor }) => {
       }`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={handlePopupClick}
+      onMouseMove={handleMouseMove}
     >
       {item.LPN}
       {isHovered && !requestView && (
         <button
-          className="bg-red-500 text-white rounded-full  absolute top-0 right-0 mr-1 mt-1 w-4 text-center h-5"
+          className="bg-red-500 text-white rounded-full absolute top-0 right-0 mr-1 mt-1 w-4 text-center h-5"
           onClick={handleRemoveClick}
         >
           X
         </button>
       )}
-      {showPopup && (
-        <div className="bg-white border border-gray-300 p-2 rounded-md absolute top-full left-0 mt-2">
-          <pre>{JSON.stringify(item, null, 2)}</pre>
-        </div>
-      )}
+      <Popup item={item} showPopup={showPopup} mouseX={mouseX} mouseY={mouseY} />
     </div>
   );
 };

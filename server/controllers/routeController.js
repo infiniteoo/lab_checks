@@ -24,7 +24,7 @@ exports.sendLabRequests = (req, res) => {
   // retrieve everything from the lab requests collection
   LabRequest.find()
     .then((labRequests) => {
-      console.log("Lab requests retrieved successfully:", labRequests);
+      
       res.json(labRequests);
     })
     .catch((error) => {

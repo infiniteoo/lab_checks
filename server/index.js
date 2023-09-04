@@ -7,8 +7,6 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 app.use(cors());
 
-
-
 // Enable CORS for all routes
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*"); // Adjust this based on your requirements
@@ -43,7 +41,6 @@ mongoose
   .catch((error) => {
     console.error("Error connecting to MongoDB:", error);
   });
-
 
 // Start the server
 app.listen(port, () => {

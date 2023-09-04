@@ -29,7 +29,6 @@ export default function Warehouse() {
 
   useEffect(() => {
     if (labRequestsUpdated === true) {
-      
       // Reset the labRequestsUpdated state variable
       setLabRequestsUpdated(false);
     }
@@ -37,7 +36,7 @@ export default function Warehouse() {
 
   // Periodically check for updates
   useEffect(() => {
-    console.log("automatically checking for updates...")
+    
     const interval = setInterval(() => {
       fetchLabRequests();
     }, 5000); // 5 minutes (adjust the interval as needed)

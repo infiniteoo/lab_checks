@@ -1,16 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import LabRequestExpandedItem from "./LabRequestItem";
 import { formatDistanceToNow } from "date-fns"; // Import date-fns function
 
 const LabCheckTracker = ({ labRequests }) => {
   const [expanded, setExpanded] = useState({});
 
-  const toggleExpand = (id) => {
+  const toggleExpand = (_id) => {
     setExpanded((prevExpanded) => ({
       ...prevExpanded,
-      [id]: !prevExpanded[id],
+      [_id]: !prevExpanded[_id],
     }));
   };
+
+  // useEffect updates the component when expanded changes
+  useEffect(() => {}, [expanded]);
 
   const getTimeAgo = (date) => {
     return formatDistanceToNow(new Date(date), { addSuffix: true });
@@ -68,10 +71,10 @@ const LabCheckTracker = ({ labRequests }) => {
 
             return (
               <li
-                key={`${labRequest.id}-${index}`}
+                key={`${labRequest._id}`}
                 className={`border-2 rounded  p-2 text-xl cursor-pointer text-black`}
                 // Apply the background color
-                onClick={() => toggleExpand(labRequest.id)}
+                onClick={() => toggleExpand(labRequest._id)}
               >
                 <div className="flex flex-row justify-between">
                   <div className="flex flex-col ">
@@ -101,7 +104,7 @@ const LabCheckTracker = ({ labRequests }) => {
                     </div>
                   </div>
                 </div>
-                {expanded[labRequest.id] && (
+                {expanded[labRequest._id] && (
                   <LabRequestExpandedItem
                     labRequests={labRequest.items}
                     labRequest={labRequest}
