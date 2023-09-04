@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import NewLabRequest from "../components/NewLabRequest";
+import NewLabRequest from "../components/Warehouse/NewLabRequest";
 import { format } from "date-fns";
 import axios from "axios";
-import LabCheckTracker from "../components/LabCheckTracker";
+import LabCheckTracker from "../components/Warehouse/LabCheckTracker";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
