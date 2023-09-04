@@ -8,6 +8,8 @@ const SubmitLabRequest = ({
   setCsvData,
   setFileSelected,
   orderNumber,
+  setLabRequests,
+  setLabRequestsUpdated,
 }) => {
   const handleSubmit = async () => {
     try {
@@ -23,7 +25,17 @@ const SubmitLabRequest = ({
       });
 
       // Make a POST request to the API with the csvData
-      await axios.post("http://localhost:8888/api/lab-requests", csvData);
+      let result = await axios.post(
+        "http://localhost:8888/api/lab-requests",
+        csvData
+      );
+
+      setLabRequestsUpdated(true);
+
+      setLabRequests((prevLabRequests) => [
+        ...prevLabRequests,
+        result.data.result,
+      ]);
       setCsvData([]); // Clear the csvData
       setFileSelected(false);
 

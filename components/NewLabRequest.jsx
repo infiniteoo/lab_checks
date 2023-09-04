@@ -6,7 +6,12 @@ import AdditionalLPNs from "./AdditionalLPNs";
 import SubmitLabRequest from "./SubmitLabRequest";
 import EnterOrderNumber from "./EnterOrderNumber";
 
-const NewLabRequest = ({ formattedDate, fetchLabRequests }) => {
+const NewLabRequest = ({
+  formattedDate,
+  fetchLabRequests,
+  setLabRequests,
+  setLabRequestsUpdated,
+}) => {
   const [csvData, setCsvData] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [fileSelected, setFileSelected] = useState(false); // Track if a file is selected
@@ -50,7 +55,6 @@ const NewLabRequest = ({ formattedDate, fetchLabRequests }) => {
             return !row.LPN || !row.LPN.toString().startsWith("L0");
           });
 
-          console.log(filteredData);
           setCsvData(filteredData);
           setErrorMessage("");
           setFileSelected(true); // Set fileSelected to true
@@ -59,7 +63,6 @@ const NewLabRequest = ({ formattedDate, fetchLabRequests }) => {
     });
 
     setCsvData(updatedCsvData);
-    /* fetchLabRequests(); */
   };
 
   return (
@@ -69,11 +72,10 @@ const NewLabRequest = ({ formattedDate, fetchLabRequests }) => {
           <h2 className="text-xl font-semibold">New Lab Request</h2>
           {fileSelected && (
             <>
-              <p className="text-gray-600">
-                Last updated: {formattedDate}
-              </p>
+              <p className="text-gray-600">Last updated: {formattedDate}</p>
               <p className="text-gray-600 text-bold text-xl">
-                Order number: <span className="text-blue-600">{orderNumber}</span>
+                Order number:{" "}
+                <span className="text-blue-600">{orderNumber}</span>
               </p>
             </>
           )}
@@ -118,6 +120,8 @@ const NewLabRequest = ({ formattedDate, fetchLabRequests }) => {
           csvData={csvData}
           setFileSelected={setFileSelected}
           orderNumber={orderNumber}
+          setLabRequestsUpdated={setLabRequestsUpdated}
+          setLabRequests={setLabRequests}
         />
       )}
     </div>

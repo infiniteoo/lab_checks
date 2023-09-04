@@ -18,6 +18,7 @@ const LabCheckTracker = ({ labRequests }) => {
 
   const getTimeAgoInMinutes = (date) => {
     const currentTime = new Date();
+    onblur;
     const requestTime = new Date(date);
     const timeDifference = currentTime - requestTime; // Difference in milliseconds
     const minutesAgo = Math.floor(timeDifference / (1000 * 60)); // Convert to minutes

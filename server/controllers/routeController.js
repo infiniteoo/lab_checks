@@ -12,8 +12,7 @@ exports.receiveLabRequest = (req, res) => {
   newLabRequest
     .save()
     .then((result) => {
-      console.log("Lab request saved successfully:", result);
-      res.json({ message: "Lab request saved successfully" });
+      res.json({ message: "Lab request saved successfully", result });
     })
     .catch((error) => {
       console.error("Error saving lab request:", error);
