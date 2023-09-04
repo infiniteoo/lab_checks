@@ -10,6 +10,7 @@ export default function Lab() {
   const formattedDate = format(new Date(), "HH:mm:ss MM/dd/yyyy");
   const [labRequests, setLabRequests] = useState([]);
   const [labRequestsUpdated, setLabRequestsUpdated] = useState(false);
+  const [displayedPallet, setDisplayedPallet] = useState([]);
 
   const fetchLabRequests = async () => {
     try {
@@ -58,22 +59,26 @@ export default function Lab() {
           <img src="./scientist.svg" alt="lab" className="w-1/2 h-40" />
         </div>
         <div className="w-full h-2 bg-gradient-to-r from-green-500 via-blue-500 to-green-500 relative mt-5 rounded-full"></div>
-      <div className="flex w-full flex-row mt-5">
-        <LabratoryTools
-          formattedDate={formattedDate}
-          fetchLabRequests={fetchLabRequests}
-          setLabRequests={setLabRequests}
-          setLabRequestsUpdated={setLabRequestsUpdated}
-        />
-        <LabCheckTracker
-          labRequests={labRequests}
-          setLabRequests={setLabRequests}
-        />
+        <div className="flex w-full flex-row mt-5">
+          <LabratoryTools
+            formattedDate={formattedDate}
+            fetchLabRequests={fetchLabRequests}
+            setLabRequests={setLabRequests}
+            setLabRequestsUpdated={setLabRequestsUpdated}
+            displayedPallet={displayedPallet}
+            setDisplayedPallet={setDisplayedPallet}
+          />
+          <LabCheckTracker
+            labRequests={labRequests}
+            setLabRequests={setLabRequests}
+            displayedPallet={displayedPallet}
+            setDisplayedPallet={setDisplayedPallet}
+          />
+        </div>
+        <div>
+          <ToastContainer position="top-right" autoClose={5000} />
+        </div>
       </div>
-      <div>
-        <ToastContainer position="top-right" autoClose={5000} />
-      </div>
-    </div>
     </>
   );
 }

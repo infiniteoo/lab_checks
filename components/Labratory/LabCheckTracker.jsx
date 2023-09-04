@@ -3,7 +3,7 @@ import LabRequestExpandedItem from "./LabRequestItem";
 import { formatDistanceToNow } from "date-fns"; // Import date-fns function
 import axios from "axios";
 
-const LabCheckTracker = ({ labRequests }) => {
+const LabCheckTracker = ({ labRequests, displayedPallet, setDisplayedPallet }) => {
   const [expanded, setExpanded] = useState({});
   const [isButtonEnabled, setButtonEnabled] = useState(false);
 
@@ -127,6 +127,8 @@ const LabCheckTracker = ({ labRequests }) => {
                       <LabRequestExpandedItem
                         labRequests={labRequest.items}
                         labRequest={labRequest}
+                        displayedPallet={displayedPallet}
+                        setDisplayedPallet={setDisplayedPallet}
                       />
                       <div className="w-full flex flex-row mt-2">
                         <div

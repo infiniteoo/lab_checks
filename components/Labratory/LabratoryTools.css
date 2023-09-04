@@ -1,0 +1,7 @@
+/* Add a CSS class to the container for LabratoryTools */
+.lab-tools-container {
+    position: sticky;
+    top: 0; /* Adjust this value to position it as needed */
+    background-color: white;
+    z-index: 1;
+  }

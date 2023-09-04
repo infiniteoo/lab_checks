@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 // add a key to the object
-const Popup = ({ item, showPopup, mouseX, mouseY }) => {
+const Popup = ({ item, showPopup, mouseX, mouseY, displayedPallet, setDisplayedPallet }) => {
   const popupStyle = {
     display: showPopup ? "block" : "none",
     position: "fixed",
@@ -49,7 +49,8 @@ const Popup = ({ item, showPopup, mouseX, mouseY }) => {
     const numRows = Math.ceil(keys.length / numCols);
 
     return (
-      <table style={tableStyle}>
+      <></>
+    /*   <table style={tableStyle}>
         <tbody>
           {[...Array(numRows)].map((_, rowIdx) => (
             <tr key={rowIdx}>
@@ -70,7 +71,7 @@ const Popup = ({ item, showPopup, mouseX, mouseY }) => {
             </tr>
           ))}
         </tbody>
-      </table>
+      </table> */
     );
   };
 
@@ -83,6 +84,8 @@ const RequestedLPN = ({
   requestView,
   backgroundColor,
   labRequest,
+  displayedPallet,
+  setDisplayedPallet
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
@@ -102,8 +105,8 @@ const RequestedLPN = ({
     onRemove(item);
   };
 
-  const handlePopupClick = () => {
-    setShowPopup(!showPopup);
+  const handlePalletClick = () => {
+    setDisplayedPallet(item);
   };
 
   const handleMouseMove = (e) => {
@@ -119,7 +122,7 @@ const RequestedLPN = ({
       }`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      onClick={handlePopupClick}
+      onClick={handlePalletClick}
       onMouseMove={handleMouseMove}
     >
       {item.LPN}
