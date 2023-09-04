@@ -1,34 +1,40 @@
 import React from "react";
+import "./LabratoryTools.css"; // Import your CSS file
 
 const DisplayedPallet = ({ item }) => {
   const popupStyle = {
-    display: "flex",
-
     backgroundColor: "white",
-
     padding: "10px",
-
     color: "black",
+    display: "flex"
+  };
+
+  const tableContainerStyle = {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
   };
 
   const tableStyle = {
-    width: "100%",
-    borderCollapse: "collapse",
-    marginTop: "10px",
+    flex: "0 0 calc(50% - 20px)",
+    marginBottom: "20px",
   };
 
   const thStyle = {
     backgroundColor: "#f2f2f2",
     padding: "8px",
     textAlign: "left",
+    
   };
 
   const tdStyle = {
+    
     padding: "8px",
     borderBottom: "1px solid #ddd",
   };
 
   const keyStyle = {
+    
     fontWeight: "bold",
   };
 
@@ -40,11 +46,11 @@ const DisplayedPallet = ({ item }) => {
     const keys = filteredItems.map(([key]) => key);
     const values = filteredItems.map(([, value]) => value);
 
-    const numCols = 2;
+    const numCols = 1;
     const numRows = Math.ceil(keys.length / numCols);
 
     return (
-      <table style={tableStyle}>
+      <table style={tableStyle} className="data-table">
         <tbody>
           {[...Array(numRows)].map((_, rowIdx) => (
             <tr key={rowIdx}>
@@ -69,7 +75,13 @@ const DisplayedPallet = ({ item }) => {
     );
   };
 
-  return <div style={popupStyle}>{renderTable()}</div>;
+  return (
+    <div style={popupStyle}>
+      <div style={tableContainerStyle} className="table-container">
+        {renderTable()}
+      </div>
+    </div>
+  );
 };
 
 export default DisplayedPallet;

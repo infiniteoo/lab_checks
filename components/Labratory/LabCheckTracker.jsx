@@ -3,15 +3,36 @@ import LabRequestExpandedItem from "./LabRequestItem";
 import { formatDistanceToNow } from "date-fns"; // Import date-fns function
 import axios from "axios";
 
-const LabCheckTracker = ({ labRequests, displayedPallet, setDisplayedPallet }) => {
+const LabCheckTracker = ({
+  labRequests,
+  displayedPallet,
+  setDisplayedPallet,
+}) => {
   const [expanded, setExpanded] = useState({});
   const [isButtonEnabled, setButtonEnabled] = useState(false);
-
+  console.log("displayedPallet", displayedPallet);
   const toggleExpand = (_id) => {
     setExpanded((prevExpanded) => ({
       ...prevExpanded,
       [_id]: !prevExpanded[_id],
-    }));
+      // if expanded contains no items, setDisplayedPallet to empty array
+    }
+    
+    ));
+    console.log('expanded',expanded);
+    let counter = 0;
+    for(let key in expanded){
+      if(expanded[key] === true){
+        counter++;
+      
+      }
+    }
+
+    if (counter === 0){
+      setDisplayedPallet([]);
+    }
+
+    
   };
 
   // useEffect updates the component when expanded changes
@@ -130,31 +151,61 @@ const LabCheckTracker = ({ labRequests, displayedPallet, setDisplayedPallet }) =
                         displayedPallet={displayedPallet}
                         setDisplayedPallet={setDisplayedPallet}
                       />
-                      <div className="w-full flex flex-row mt-2">
-                        <div
-                          className={`w-1/6 bg-green-500 hover:bg-blue-600 text-white font-semibold py-4 px-3 rounded-full transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer text-center text-sm ${
-                            labRequest.testResults === "Passed"
-                              ? "opacity-0 pointer-events-none"
-                              : ""
-                          }`}
-                          onClick={async () => {
-                            // Handle button click when it's enabled
-                          }}
-                        >
-                          Pass All Pallets
+                      <div className="w-full flex flex-row justify-between mt-2">
+                        <div className="flex flex-row h-10">
+                          <div
+                            className={`w-full bg-green-500 hover:bg-yellow-500 text-white font-semibold  rounded-full transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer text-center text-sm px-5 ${
+                              labRequest.testResults === "Passed"
+                                ? "opacity-0 pointer-events-none"
+                                : ""
+                            }`}
+                            onClick={async () => {
+                              // Handle button click when it's enabled
+                            }}
+                          >
+                            Pass All
+                          </div>
+                          <div
+                            className={`w-full bg-red-500 hover:bg-yellow-500 text-white font-semibold  rounded-full transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer text-center text-sm ml-1 px-5 ${
+                              labRequest.testResults === "Passed"
+                                ? "opacity-0 pointer-events-none"
+                                : ""
+                            }`}
+                            onClick={async () => {
+                              // Handle button click when it's enabled
+                            }}
+                          >
+                            Deny All
+                          </div>
                         </div>
-                        <div
-                          className={`w-1/6 bg-red-500 hover:bg-blue-600 ml-1 text-white font-semibold py-4 px-3 rounded-full transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer text-center text-sm ${
-                            labRequest.testResults === "Passed"
-                              ? "opacity-0 pointer-events-none"
-                              : ""
-                          }`}
-                          onClick={async () => {
-                            // Handle button click when it's enabled
-                          }}
-                        >
-                          Deny All Pallets
-                        </div>
+                        {displayedPallet.length !== 0 && (
+                          <div className="flex flex-row ">
+                            <div
+                              className={`w-full bg-green-500 hover:bg-yellow-500 text-white font-semibold rounded-full transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer flex-wrap text-center text-sm px-5 ${
+                                labRequest.testResults === "Passed"
+                                  ? "opacity-0 pointer-events-none"
+                                  : ""
+                              }`}
+                              onClick={async () => {
+                                // Handle button click when it's enabled
+                              }}
+                            >
+                              Pass Selected
+                            </div>
+                            <div
+                              className={`w-full bg-red-500 hover:bg-yellow-500 text-white font-semibold  rounded-full transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer ml-1 text-center text-sm px-5 ${
+                                labRequest.testResults === "Passed"
+                                  ? "opacity-0 pointer-events-none"
+                                  : ""
+                              }`}
+                              onClick={async () => {
+                                // Handle button click when it's enabled
+                              }}
+                            >
+                              Deny Selected
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </>
                   )}
