@@ -4,7 +4,7 @@ const RequestedLPN = ({ item, onRemove, requestView, backgroundColor }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
 
-  if(requestView === "true"){
+  if (requestView === "true") {
     let colorToUse = backgroundColor;
   } else {
     let colorToUse = "blue";

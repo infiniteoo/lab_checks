@@ -13,9 +13,7 @@ const SubmitLabRequest = ({
     try {
       // Loop through each labRequest and add LPN to testResults with "Pending" value
       csvData.forEach((labRequest) => {
-        console.log("labRequest in Submit", labRequest);
         for (const item in labRequest) {
-          console.log("item", item);
           if (!labRequest.testResults) {
             labRequest.testResults = {};
           }
@@ -23,8 +21,6 @@ const SubmitLabRequest = ({
           labRequest.orderNumber = orderNumber;
         }
       });
-
-      console.log("csvData", csvData);
 
       // Make a POST request to the API with the csvData
       await axios.post("http://localhost:8888/api/lab-requests", csvData);

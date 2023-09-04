@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import LabRequestExpandedItem from "./LabRequestItem";
 import { formatDistanceToNow } from "date-fns"; // Import date-fns function
 
@@ -61,7 +61,6 @@ const LabCheckTracker = ({ labRequests }) => {
               backgroundColor = "red";
             } else if (timeAgo >= 30) {
               backgroundColor = "orange";
-                
             } else {
               backgroundColor = "green";
             }
@@ -102,7 +101,10 @@ const LabCheckTracker = ({ labRequests }) => {
                   </div>
                 </div>
                 {expanded[labRequest.id] && (
-                  <LabRequestExpandedItem labRequests={labRequest.items} labRequest={labRequest} />
+                  <LabRequestExpandedItem
+                    labRequests={labRequest.items}
+                    labRequest={labRequest}
+                  />
                 )}
               </li>
             );

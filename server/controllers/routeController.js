@@ -1,14 +1,11 @@
 const LabRequest = require("../models/labRequest"); // Import the LabRequest model
 
 exports.receiveLabRequest = (req, res) => {
-  console.log('req.body', req.body);
   // Create a new instance of the LabRequest model with req.body data
   const newLabRequest = new LabRequest({
     items: req.body,
     orderNumber: req.body[0].orderNumber,
-    testResults: "Pending"
-
-
+    testResults: "Pending",
   });
 
   // Save the newLabRequest to the database

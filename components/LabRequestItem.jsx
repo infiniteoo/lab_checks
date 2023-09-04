@@ -1,19 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import RequestedLPN from "./RequestedLPN";
-import { formatDistanceToNow } from "date-fns"; // Import date-fns function
 
-const LabRequestExpandedItem = ({ labRequests, labRequest }) => {
-  console.log("labRequest", labRequests);
-
+const LabRequestExpandedItem = ({ labRequests }) => {
   return (
     <div className="flex flex-col items-center">
       <ul className="mt-2 flex flex-wrap justify-center items-stretch">
         {labRequests &&
           labRequests.map((item, index) => {
             let backgroundColor = "";
-            console.log("labrequest.status",labRequest.status)
+
             // Determine background color based on item.status
-            switch (labRequest.status) {
+            switch (item.testResults) {
               case "Pending":
                 backgroundColor = "lightgray";
                 break;
@@ -24,7 +21,7 @@ const LabRequestExpandedItem = ({ labRequests, labRequest }) => {
                 backgroundColor = "red";
                 break;
               default:
-                backgroundColor = "gray";
+                backgroundColor = "blue";
             }
 
             return (
