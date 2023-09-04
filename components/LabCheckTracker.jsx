@@ -102,7 +102,7 @@ const LabCheckTracker = ({ labRequests }) => {
                   </div>
                 </div>
                 {expanded[labRequest.id] && (
-                  <LabRequestExpandedItem labRequests={labRequest.items} />
+                  <LabRequestExpandedItem labRequests={labRequest.items} labRequest={labRequest} />
                 )}
               </li>
             );

@@ -37,7 +37,9 @@ const labRequestSchema = new mongoose.Schema({
     default: "00:00:00 00/00/0000",
   },
   testResults: {
-    type: Object
+    type: String,
+    default: "Pending"
+    
   },
 
     
