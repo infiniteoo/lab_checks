@@ -22,7 +22,7 @@ const labRequestSchema = new mongoose.Schema({
   status: {
     type: String,
     default: "Pending",
-    enum: ["Pending", "Approved", "Denied"],
+    enum: ["Pending", "Approved", "Denied", "Closed"],
   },
   dateApproved: {
     type: String,
@@ -35,6 +35,10 @@ const labRequestSchema = new mongoose.Schema({
   testResults: {
     type: String,
     default: "Pending",
+  },
+  testResultAcknowledgement: {
+    type: Boolean,
+    default: false,
   },
 });
 

@@ -125,7 +125,6 @@ const RequestedLPN = ({
       {item.LPN}
       {isHovered && !requestView && (
         <button
-          key={labRequest._id}
           className="bg-red-500 text-white rounded-full absolute top-0 right-0 mr-1 mt-1 w-4 text-center h-5"
           onClick={handleRemoveClick}
         >
@@ -137,7 +136,6 @@ const RequestedLPN = ({
         showPopup={showPopup}
         mouseX={mouseX}
         mouseY={mouseY}
-        key={labRequest._id}
       />
     </div>
   );
