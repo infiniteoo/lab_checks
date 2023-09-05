@@ -58,14 +58,14 @@ const Popup = ({ item, showPopup, mouseX, mouseY }) => {
       <table style={tableStyle}>
         <tbody>
           {[...Array(numRows)].map((_, rowIdx) => (
-            <tr key={rowIdx  + "-" + uuid.v6()} >
+            <tr key={rowIdx + "-" + uuid.v6()}>
               {[...Array(numCols)].map((_, colIdx) => {
                 const keyIdx = rowIdx * numCols + colIdx;
                 const key = keys[keyIdx];
                 const value = values[keyIdx];
 
                 return (
-                  <React.Fragment key={key  + "-" + uuid.v6()}>
+                  <React.Fragment key={key + "-" + uuid.v6()}>
                     <td style={thStyle}>
                       <span style={keyStyle}>{key}:</span>
                     </td>

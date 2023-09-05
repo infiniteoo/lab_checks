@@ -11,7 +11,6 @@ const AutomationStatus = ({ automationSwitch }) => {
 
   return (
     <div className="automation-status">
-      
       <div className={`status-display ${status.toLowerCase()}`}>
         <span>{status}</span>
       </div>

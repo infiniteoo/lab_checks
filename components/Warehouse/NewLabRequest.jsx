@@ -104,7 +104,7 @@ const NewLabRequest = ({
         {fileSelected && (
           <ul className="mt-1 flex flex-wrap justify-center items-stretch">
             {csvData.map((row, index) => (
-              <li key={index  + "-" + uuid.v6()} className="mb-1 mr-1">
+              <li key={index + "-" + uuid.v6()} className="mb-1 mr-1">
                 <RequestedLPN item={row} onRemove={onRemove} />
               </li>
             ))}

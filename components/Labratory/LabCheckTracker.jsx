@@ -70,8 +70,6 @@ const LabCheckTracker = ({
       id: selectedLabRequest._id,
 
       testResults: "Passed",
-      
-    
     });
 
     // Loop through all items in selectedLabRequest and update the background color
@@ -99,8 +97,6 @@ const LabCheckTracker = ({
       id: selectedLabRequest._id,
 
       testResults: "Pending",
-      
-     
     });
 
     selectedLabRequest.items.forEach((item) => {
@@ -115,7 +111,6 @@ const LabCheckTracker = ({
     console.log(result);
   };
   const handlePassSelected = async (e) => {
-   
     let result = await axios.post(`http://localhost:8888/api/pass-selected`, {
       lpn: selectedPallet.LPN,
       id: selectedLabRequest._id,
@@ -173,7 +168,9 @@ const LabCheckTracker = ({
       (stat) =>
         stat._id === selectedLabRequest._id &&
         stat.testedPalletCount === stat.totalPalletCount
-    ) && selectedLabRequest.status !== "Closed" && selectedLabRequest.status !== "Approved";
+    ) &&
+    selectedLabRequest.status !== "Closed" &&
+    selectedLabRequest.status !== "Approved";
 
   const handleFinalizeResults = async () => {
     // Update the labRequest.status to "Approved" via API
@@ -187,8 +184,6 @@ const LabCheckTracker = ({
       }
     });
 
-
-
     let result = await axios.post(
       `http://localhost:8888/api/finalize-results`,
       {
@@ -199,8 +194,6 @@ const LabCheckTracker = ({
       }
     );
     console.log(result);
-
-
   };
 
   return (

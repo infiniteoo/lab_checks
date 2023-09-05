@@ -103,7 +103,6 @@ const LabCheckTracker = ({
                   className={`border-2 rounded  p-2 text-xl cursor-pointer z-10 text-black`}
                   // Apply the background color
                 >
-                  
                   <div
                     className="flex flex-row justify-between"
                     onClick={() => toggleExpand(labRequest._id)}
