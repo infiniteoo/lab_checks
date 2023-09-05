@@ -26,6 +26,9 @@ export default function Lab() {
         const filteredResponse = response.data.filter(
           (labRequest) => labRequest.status !== "Closed"
         );
+        // display data so that the newest is at the top
+        filteredResponse.reverse();
+        
         // compared filteredResponse to existing labRequests and only update if different
         if (JSON.stringify(filteredResponse) === JSON.stringify(labRequests)) {
           console.log("items are the same, not updating");

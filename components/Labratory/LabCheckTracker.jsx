@@ -13,8 +13,8 @@ const LabCheckTracker = ({
   selectedLabRequest,
   setSelectedLabRequest,
   setLabRequests,
-  hideClosed, 
-  setHideClosed
+  hideClosed,
+  setHideClosed,
 }) => {
   const [expanded, setExpanded] = useState({});
   const [isButtonEnabled, setButtonEnabled] = useState(false);
@@ -157,11 +157,16 @@ const LabCheckTracker = ({
       <h2 className="text-xl font-semibold mb-4 text-center">
         Previous Lab Requests
       </h2>
-      
+
       <div className="flex flex-row items-right justify-between">
-      <div></div>
+        <div></div>
         <div className="">
-          <HideCompletedSwitch hideClosed={hideClosed} setHideClosed={setHideClosed} labRequests={labRequests} setLabRequests={setLabRequests} />
+          <HideCompletedSwitch
+            hideClosed={hideClosed}
+            setHideClosed={setHideClosed}
+            labRequests={labRequests}
+            setLabRequests={setLabRequests}
+          />
         </div>
       </div>
       <ul className="mt-4">
@@ -171,6 +176,7 @@ const LabCheckTracker = ({
             let statusBackgroundColor = "";
             let statusHighlight = "";
             let statusFontColor = "";
+            let statusBorder = "";
 
             // Determine background color based on labRequest.status
             switch (labRequest.status) {
@@ -183,9 +189,10 @@ const LabCheckTracker = ({
                 statusHighlight = "Approved";
                 break;
               case "Denied":
-                statusBackgroundColor = "red";
+                statusBackgroundColor = "black";
                 statusHighlight = "Denied";
                 statusFontColor = "white";
+                statusBorder = "4px solid red";
                 break;
               default:
                 statusBackgroundColor = "gray";
@@ -250,6 +257,7 @@ const LabCheckTracker = ({
                         style={{
                           backgroundColor: statusBackgroundColor,
                           color: statusFontColor,
+                          border: statusBorder
                         }}
                         className="text-right text-sm rounded p-1 mt-1"
                       >
