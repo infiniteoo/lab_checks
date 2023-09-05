@@ -14,14 +14,14 @@ const LabRequestExpandedItem = ({ labRequests, labRequest }) => {
               case "Pending":
                 backgroundColor = "lightgray";
                 break;
-              case "Approved":
+              case "Passed":
                 backgroundColor = "lightgreen";
                 break;
               case "Denied":
                 backgroundColor = "red";
                 break;
               default:
-                backgroundColor = "blue";
+                backgroundColor = "gray";
             }
 
             return (

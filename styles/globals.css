@@ -35,3 +35,9 @@ body {
     background-position: 200px 0;
   }
 }
+
+.selected-pallet {
+  border: 2px solid red; /* Add a border to highlight the selected pallet */
+  box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5); /* Add a shadow for emphasis */
+  background-color: #f0f0f0; /* Change the background color */
+}

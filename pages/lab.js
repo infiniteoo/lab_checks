@@ -11,6 +11,8 @@ export default function Lab() {
   const [labRequests, setLabRequests] = useState([]);
   const [labRequestsUpdated, setLabRequestsUpdated] = useState(false);
   const [displayedPallet, setDisplayedPallet] = useState([]);
+  const [selectedPallet, setSelectedPallet] = useState([]);
+  const [selectedLabRequest, setSelectedLabRequest] = useState([]);
 
   const fetchLabRequests = async () => {
     try {
@@ -27,6 +29,10 @@ export default function Lab() {
   useEffect(() => {
     fetchLabRequests();
   }, []);
+
+  useEffect(() => {
+    fetchLabRequests();
+  }, [selectedLabRequest, selectedPallet]);
 
   useEffect(() => {
     if (labRequestsUpdated === true) {
@@ -67,12 +73,21 @@ export default function Lab() {
             setLabRequestsUpdated={setLabRequestsUpdated}
             displayedPallet={displayedPallet}
             setDisplayedPallet={setDisplayedPallet}
+            selectedPallet={selectedPallet}
+            setSelectedPallet={setSelectedPallet}
+            selectedLabRequest={selectedLabRequest}
+            setSelectedLabRequest={setSelectedLabRequest}
           />
           <LabCheckTracker
             labRequests={labRequests}
             setLabRequests={setLabRequests}
             displayedPallet={displayedPallet}
             setDisplayedPallet={setDisplayedPallet}
+            selectedPallet={selectedPallet}
+            setSelectedPallet={setSelectedPallet}
+            selectedLabRequest={selectedLabRequest}
+            setSelectedLabRequest={setSelectedLabRequest}
+            
           />
         </div>
         <div>

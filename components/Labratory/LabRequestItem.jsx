@@ -6,6 +6,10 @@ const LabRequestExpandedItem = ({
   labRequest,
   displayedPallet,
   setDisplayedPallet,
+  selectedLabRequest,
+  setSelectedLabRequest,
+  selectedPallet,
+  setSelectedPallet,
 }) => {
   return (
     <div className="flex flex-col items-center">
@@ -19,14 +23,14 @@ const LabRequestExpandedItem = ({
               case "Pending":
                 backgroundColor = "lightgray";
                 break;
-              case "Approved":
+              case "Passed":
                 backgroundColor = "lightgreen";
                 break;
               case "Denied":
                 backgroundColor = "red";
                 break;
               default:
-                backgroundColor = "blue";
+                backgroundColor = "gray";
             }
 
             return (
@@ -43,6 +47,10 @@ const LabRequestExpandedItem = ({
                   key={`${labRequest._id}-${index}`}
                   displayedPallet={displayedPallet}
                   setDisplayedPallet={setDisplayedPallet}
+                  selectedLabRequest={selectedLabRequest}
+                  setSelectedLabRequest={setSelectedLabRequest}
+                  selectedPallet={selectedPallet}
+                  setSelectedPallet={setSelectedPallet}
                 />
               </li>
             );

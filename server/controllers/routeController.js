@@ -47,3 +47,38 @@ exports.updateLabRequest = (req, res) => {
       res.status(500).json({ error: "Failed to update lab request" });
     });
 };
+
+exports.approveAll = async (req, res) => {
+  console.log("req.body", req.body);
+  try {
+    const labRequestId = req.body.id;
+    console.log("labRequestId", labRequestId);
+
+    // Update the lab request with the given ID
+    const updatedLabRequest = await LabRequest.findByIdAndUpdate(
+      labRequestId,
+      {
+        testResults: "Passed",
+        status: "Approved",
+        dateApproved: new Date(),
+      },
+      { new: true }
+    );
+
+    // Update all items in the lab request to have "Passed" testResults
+    await LabRequest.updateMany(
+      { _id: labRequestId },
+      { $set: { "items.$[].testResults": "Passed" } }
+    );
+
+    res.json({
+      message: "Lab request and items updated successfully",
+      updatedLabRequest,
+    });
+  } catch (error) {
+    console.error("Error updating lab request and items:", error);
+    res.status(500).json({
+      error: "Failed to update lab request and items",
+    });
+  }
+};

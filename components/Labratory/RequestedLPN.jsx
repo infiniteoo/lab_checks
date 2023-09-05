@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 // add a key to the object
-const Popup = ({ item, showPopup, mouseX, mouseY, displayedPallet, setDisplayedPallet }) => {
+const Popup = ({ item, showPopup, mouseX, mouseY, displayedPallet, setDisplayedPallet, selectedLabRequest, setSelectedLabRequest, selectedPallet, setSelectedPallet }) => {
   const popupStyle = {
     display: showPopup ? "block" : "none",
     position: "fixed",
@@ -85,7 +85,12 @@ const RequestedLPN = ({
   backgroundColor,
   labRequest,
   displayedPallet,
-  setDisplayedPallet
+  setDisplayedPallet,
+  selectedLabRequest,
+  setSelectedLabRequest,
+  selectedPallet,
+  setSelectedPallet,
+
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
@@ -107,6 +112,8 @@ const RequestedLPN = ({
 
   const handlePalletClick = () => {
     setDisplayedPallet(item);
+    setSelectedPallet(item);
+    console.log("selected pallet", selectedPallet)
   };
 
   const handleMouseMove = (e) => {
@@ -116,15 +123,15 @@ const RequestedLPN = ({
 
   return (
     <div
-      style={{ backgroundColor: backgroundColor }}
-      className={`bg-blue-400 border-3 text-white p-1 text-center rounded-xl p-3 shadow-lg shadow-gray-200 w-32 rounded-lg ${
-        isHovered ? "transform scale-105" : ""
-      }`}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      onClick={handlePalletClick}
-      onMouseMove={handleMouseMove}
-    >
+    style={{ backgroundColor: backgroundColor }}
+    className={`  text-white p-1 text-center  p-3 shadow-md shadow-gray-200 w-32  ${
+      isHovered ? "transform scale-105" : ""
+    } ${displayedPallet === item ? "selected-pallet" : ""}`}
+    onMouseEnter={handleMouseEnter}
+    onMouseLeave={handleMouseLeave}
+    onClick={handlePalletClick}
+    onMouseMove={handleMouseMove}
+  >
       {item.LPN}
       {isHovered && !requestView && (
         <button

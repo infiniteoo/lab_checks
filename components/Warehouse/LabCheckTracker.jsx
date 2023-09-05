@@ -43,6 +43,7 @@ const LabCheckTracker = ({ labRequests }) => {
             let statusHighlight = "";
 
             // Determine background color based on labRequest.status
+            
             switch (labRequest.status) {
               case "Pending":
                 statusBackgroundColor = "lightgray";

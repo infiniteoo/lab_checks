@@ -7,6 +7,10 @@ const LabCheckTracker = ({
   labRequests,
   displayedPallet,
   setDisplayedPallet,
+  selectedPallet,
+  setSelectedPallet,
+  selectedLabRequest,
+  setSelectedLabRequest,
 }) => {
   const [expanded, setExpanded] = useState({});
   const [isButtonEnabled, setButtonEnabled] = useState(false);
@@ -16,23 +20,18 @@ const LabCheckTracker = ({
       ...prevExpanded,
       [_id]: !prevExpanded[_id],
       // if expanded contains no items, setDisplayedPallet to empty array
-    }
-    
-    ));
-    console.log('expanded',expanded);
+    }));
+    console.log("expanded", expanded);
     let counter = 0;
-    for(let key in expanded){
-      if(expanded[key] === true){
+    for (let key in expanded) {
+      if (expanded[key] === true) {
         counter++;
-      
       }
     }
 
-    if (counter === 0){
+    if (counter === 0) {
       setDisplayedPallet([]);
     }
-
-    
   };
 
   // useEffect updates the component when expanded changes
@@ -49,6 +48,37 @@ const LabCheckTracker = ({
     const timeDifference = currentTime - requestTime; // Difference in milliseconds
     const minutesAgo = Math.floor(timeDifference / (1000 * 60)); // Convert to minutes
     return minutesAgo;
+  };
+
+  const handleLabRequestClick = async (_id) => {
+    // Update the labRequest.testResults for all items in the labRequest
+    // Set the labRequest.testResults to "Passed"
+    console.log("handleLabRequestClick id value", _id);
+    setSelectedLabRequest(
+      labRequests.find((labRequest) => labRequest._id === _id)
+    );
+    console.log("selectedLabRequest", selectedLabRequest);
+    toggleExpand(_id);
+  };
+
+  const handlePassAll = async () => {
+    // Update the labRequest.testResults for all items in the labRequest
+    // Set the labRequest.testResults to "Passed"
+    // Update the labRequest.status to "Approved"
+    // Update the labRequest.dateCompleted to the current date
+    console.log("selectedLabRequest", selectedLabRequest);
+    console.log("selectedLabRequest._id", selectedLabRequest._id);
+
+    let result = await axios.post(`http://localhost:8888/api/approve-all`, {
+      id: selectedLabRequest._id,
+
+      testResults: "Passed",
+      status: "Approved",
+      dateApproved: new Date(),
+      testResultAcknowledgement: false,
+    });
+
+    console.log(result);
   };
 
   return (
@@ -101,7 +131,9 @@ const LabCheckTracker = ({
                 >
                   <div
                     className="flex flex-row justify-between"
-                    onClick={() => toggleExpand(labRequest._id)}
+                    onClick={() => {
+                      handleLabRequestClick(labRequest._id);
+                    }}
                   >
                     <div className="flex flex-col">
                       <h3 className="items-left text-xl">
@@ -150,6 +182,10 @@ const LabCheckTracker = ({
                         labRequest={labRequest}
                         displayedPallet={displayedPallet}
                         setDisplayedPallet={setDisplayedPallet}
+                        selectedLabRequest={selectedLabRequest}
+                        setSelectedLabRequest={setSelectedLabRequest}
+                        selectedPallet={selectedPallet}
+                        setSelectedPallet={setSelectedPallet}
                       />
                       <div className="w-full flex flex-row justify-between mt-2">
                         <div className="flex flex-row h-10">
@@ -159,9 +195,7 @@ const LabCheckTracker = ({
                                 ? "opacity-0 pointer-events-none"
                                 : ""
                             }`}
-                            onClick={async () => {
-                              // Handle button click when it's enabled
-                            }}
+                            onClick={handlePassAll}
                           >
                             Pass All
                           </div>
