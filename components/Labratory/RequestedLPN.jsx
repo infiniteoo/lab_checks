@@ -100,35 +100,25 @@ const RequestedLPN = ({
   };
 
   const handlePalletClick = (e) => {
-    console.log('selected pallet div', selectedPallet.divID);
+    console.log("selected pallet div", selectedPallet.divID);
     // reset current styling before change
     const currentPallet = document.getElementById(selectedPallet.divID);
-    currentPallet.style.borderColor = "";
-    currentPallet.style.borderWidth = "";
-    currentPallet.style.borderStyle = "";
-    currentPallet.style.borderRadius = "";
-    currentPallet.style.padding = "";
-    currentPallet.style.margin = "";
+    if (currentPallet) {
+      currentPallet.style.borderColor = "";
+      currentPallet.style.borderWidth = "";
+      currentPallet.style.borderStyle = "";
+    }
 
     setDisplayedPallet(item);
-    
-    setSelectedPallet({item, divID: e.target.id});
-  
-      
 
-   // set the border color of the selected pallet
+    setSelectedPallet({ item, divID: e.target.id });
+
+    // set the border color of the selected pallet
     const selectedPalletDiv = document.getElementById(e.target.id);
     console.log(e.target.id);
     selectedPalletDiv.style.borderColor = "black";
     selectedPalletDiv.style.borderWidth = "3px";
     selectedPalletDiv.style.borderStyle = "solid";
-    
-   
-    
-   
-   
-    
-   
   };
 
   const handleMouseMove = (e) => {
