@@ -13,14 +13,46 @@ export default function Lab() {
   const [displayedPallet, setDisplayedPallet] = useState([]);
   const [selectedPallet, setSelectedPallet] = useState([]);
   const [selectedLabRequest, setSelectedLabRequest] = useState([]);
+  const [hideClosed, setHideClosed] = useState(true);
 
   const fetchLabRequests = async () => {
     try {
       const response = await axios.get(
         "http://localhost:8888/api/lab-requests"
       );
-      setLabRequests(response.data); // Update state with fetched lab requests
-      setLabRequestsUpdated(true); // Signal that labRequests have been updated
+
+      // if hideClosed is true, filter out closed requests from response.data
+      if (hideClosed === true) {
+        const filteredResponse = response.data.filter(
+          (labRequest) => labRequest.status !== "Closed"
+        );
+        // compared filteredResponse to existing labRequests and only update if different
+        if (JSON.stringify(filteredResponse) === JSON.stringify(labRequests)) {
+          console.log("items are the same, not updating");
+          return;
+        } else {
+          // If different, update state
+          console.log("items are different, updating");
+          setLabRequests(filteredResponse); // Update state with fetched lab requests
+          setLabRequestsUpdated(true); // Signal that labRequests have been updated
+          return;
+        }
+      } else {
+        // compared response.data to existing labRequests and only update if different
+        if (JSON.stringify(response.data) === JSON.stringify(labRequests)) {
+          console.log("items are the same, not updating");
+          return;
+        } else {
+          // If different, update state
+          console.log("items are different, updating");
+          setLabRequests(response.data); // Update state with fetched lab requests
+          setLabRequestsUpdated(true); // Signal that labRequests have been updated
+          return;
+        }
+      }
+
+
+
     } catch (error) {
       console.error("Error fetching lab requests:", error);
     }
@@ -87,7 +119,8 @@ export default function Lab() {
             setSelectedPallet={setSelectedPallet}
             selectedLabRequest={selectedLabRequest}
             setSelectedLabRequest={setSelectedLabRequest}
-            
+            hideClosed={hideClosed}
+            setHideClosed={setHideClosed}
           />
         </div>
         <div>
