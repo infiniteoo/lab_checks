@@ -309,7 +309,7 @@ const LabCheckTracker = ({
                       <div className="w-full flex flex-row justify-between mt-2">
                         <div className="flex flex-row h-10">
                           <div
-                            className={`w-full bg-green-500 hover:bg-yellow-500 text-white font-semibold rounded-full transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer text-center justify-center items-center text-sm px-5 py-2 ${
+                            className={`w-full bg-white-500 hover:bg-green-700 hover:text-white text-green-700 border-2 border-green-600 font-bold rounded-full transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer text-center justify-center items-center text-sm px-5 py-2 ${
                               labRequest.testResults === "Passed"
                                 ? "opacity-0 pointer-events-none"
                                 : ""
@@ -319,7 +319,7 @@ const LabCheckTracker = ({
                             Pass All
                           </div>
                           <div
-                            className={`w-full bg-red-500 hover:bg-yellow-500 text-white font-semibold  rounded-full transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer text-center text-sm ml-1 px-5  justify-center items-center ${
+                            className={`w-full bg-white  hover:bg-red-500 hover:text-white text-red-600 font-bold border-red-600 border-2 rounded-full transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer text-center text-sm ml-1  px-5   ${
                               labRequest.testResults === "Passed"
                                 ? "opacity-0 pointer-events-none"
                                 : ""
@@ -330,13 +330,13 @@ const LabCheckTracker = ({
                           </div>
                         </div>
                         {shouldRenderFinalizeResults && (
-                          <div className="flex flex-row h-10">
-                            <button
+                          <div className="flex flex-row h-10 justify-center text-center items-center my-3">
+                            <div
                               onClick={handleFinalizeResults}
-                              className="px-4 py-2 text-white bg-black rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200 items-center  justify-center text-center py-1"
+                              className="px-4 py-1 text-black my-2 bg-white font-bold border-black border-4 rounded-md hover:bg-black hover:text-white focus:outline-none focus:ring focus:ring-blue-200 items-center justify-center text-center py-1"
                             >
                               Finalize Results
-                            </button>
+                            </div>
                           </div>
                         )}
                         {displayedPallet.length !== 0 && (

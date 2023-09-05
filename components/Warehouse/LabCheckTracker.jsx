@@ -131,7 +131,7 @@ const LabCheckTracker = ({ labRequests }) => {
                       />
                       <div className="w-full flex flex-row">
                         <div
-                          className={`w-1/6 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-4 px-3 rounded-full transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer text-center text-sm ${
+                          className={`w-1/6 bg-white-500 hover:bg-blue-600 text-black border-green-400 border-2 font-semibold py-4 px-3 rounded-full transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer text-center text-sm ${
                             labRequest.testResults === "Pending"
                               ? "opacity-0 pointer-events-none"
                               : ""

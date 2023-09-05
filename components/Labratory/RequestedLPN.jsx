@@ -100,11 +100,34 @@ const RequestedLPN = ({
   };
 
   const handlePalletClick = (e) => {
-    console.log("EVENT CLICK", e);
+    console.log('selected pallet div', selectedPallet.divID);
+    // reset current styling before change
+    const currentPallet = document.getElementById(selectedPallet.divID);
+    currentPallet.style.borderColor = "";
+    currentPallet.style.borderWidth = "";
+    currentPallet.style.borderStyle = "";
+    currentPallet.style.borderRadius = "";
+    currentPallet.style.padding = "";
+    currentPallet.style.margin = "";
 
     setDisplayedPallet(item);
+    
     setSelectedPallet({item, divID: e.target.id});
+  
+      
+
+   // set the border color of the selected pallet
+    const selectedPalletDiv = document.getElementById(e.target.id);
+    console.log(e.target.id);
+    selectedPalletDiv.style.borderColor = "black";
+    selectedPalletDiv.style.borderWidth = "3px";
+    selectedPalletDiv.style.borderStyle = "solid";
+    
    
+    
+   
+   
+    
    
   };
 
@@ -116,7 +139,7 @@ const RequestedLPN = ({
   return (
     <div
       style={{ backgroundColor: backgroundColor }}
-      className={`  text-white p-1 text-center  p-3 shadow-md shadow-gray-200 w-32  ${
+      className={`  text-white p-1 text-center focus: focus:outline-black  p-3 shadow-md shadow-gray-200 w-32  ${
         isHovered ? "transform scale-105" : ""
       } ${selectedPallet === item ? "selected-pallet" : ""}`}
       id={selectedLabRequest._id + "-" + item.LPN}
@@ -134,12 +157,12 @@ const RequestedLPN = ({
           X
         </button>
       )}
-      <Popup
+      {/* <Popup
         item={item}
         showPopup={showPopup}
         mouseX={mouseX}
         mouseY={mouseY}
-      />
+      /> */}
     </div>
   );
 };
