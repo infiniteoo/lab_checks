@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import LabRequestExpandedItem from "./LabRequestItem";
 import { formatDistanceToNow } from "date-fns"; // Import date-fns function
 import axios from "axios";
+import HideCompletedSwitch from "./HideCompletedSwitch";
 
 const LabCheckTracker = ({
   labRequests,
@@ -24,8 +25,6 @@ const LabCheckTracker = ({
       // if expanded contains no items, setDisplayedPallet to empty array
     }));
     console.log("expanded", expanded);
-   
-  
   };
 
   // useEffect updates the component when expanded changes
@@ -151,10 +150,17 @@ const LabCheckTracker = ({
   };
 
   return (
-    <div className="w-full p-6 bg-white shadow-md rounded-lg ml-2">
+    <div className="w-full p-6 bg-white shadow-md rounded-lg ml-2 ">
       <h2 className="text-xl font-semibold mb-4 text-center">
         Previous Lab Requests
       </h2>
+      
+      <div className="flex flex-row items-right justify-between">
+      <div></div>
+        <div className="">
+          <HideCompletedSwitch />
+        </div>
+      </div>
       <ul className="mt-4">
         {labRequests &&
           labRequests.map((labRequest, index) => {
@@ -274,7 +280,7 @@ const LabCheckTracker = ({
                             Pass All
                           </div>
                           <div
-                            className={`w-full bg-red-500 hover:bg-yellow-500 text-white font-semibold  rounded-full transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer text-center text-sm ml-1 px-5  justify-center items-center${
+                            className={`w-full bg-red-500 hover:bg-yellow-500 text-white font-semibold  rounded-full transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer text-center text-sm ml-1 px-5  justify-center items-center ${
                               labRequest.testResults === "Passed"
                                 ? "opacity-0 pointer-events-none"
                                 : ""
