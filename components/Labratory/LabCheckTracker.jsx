@@ -14,6 +14,8 @@ const LabCheckTracker = ({
 }) => {
   const [expanded, setExpanded] = useState({});
   const [isButtonEnabled, setButtonEnabled] = useState(false);
+  const [totalTestedPallets, setTotalTestedPallets] = useState(0);
+
   console.log("displayedPallet", displayedPallet);
   const toggleExpand = (_id) => {
     setExpanded((prevExpanded) => ({
@@ -22,16 +24,8 @@ const LabCheckTracker = ({
       // if expanded contains no items, setDisplayedPallet to empty array
     }));
     console.log("expanded", expanded);
-    let counter = 0;
-    for (let key in expanded) {
-      if (expanded[key] === true) {
-        counter++;
-      }
-    }
-
-    if (counter === 0) {
-      setDisplayedPallet([]);
-    }
+   
+  
   };
 
   // useEffect updates the component when expanded changes
@@ -123,6 +117,37 @@ const LabCheckTracker = ({
       testResultAcknowledgement: false,
     });
     console.log(result);
+  };
+
+  const calculateLabRequestStats = () => {
+    const labRequestStats = [];
+
+    labRequests.forEach((item) => {
+      const testedCount = item.items.filter(
+        (lpn) => lpn.testResults === "Failed" || lpn.testResults === "Passed"
+      ).length;
+
+      labRequestStats.push({
+        _id: item._id,
+        totalPalletCount: item.items.length,
+        testedPalletCount: testedCount,
+      });
+    });
+
+    return labRequestStats;
+  };
+
+  const labRequestStats = calculateLabRequestStats();
+
+  const shouldRenderFinalizeResults =
+    labRequestStats.some(
+      (stat) =>
+        stat._id === selectedLabRequest._id &&
+        stat.testedPalletCount === stat.totalPalletCount
+    ) && selectedLabRequest.status !== "Closed";
+
+  const handleFinalizeResults = async () => {
+    console.log("finalized button hit");
   };
 
   return (
@@ -259,6 +284,16 @@ const LabCheckTracker = ({
                             Deny All
                           </div>
                         </div>
+                        {shouldRenderFinalizeResults && (
+                          <div className="flex flex-row h-10">
+                            <button
+                              onClick={handleFinalizeResults}
+                              className="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200"
+                            >
+                              Finalize Results
+                            </button>
+                          </div>
+                        )}
                         {displayedPallet.length !== 0 && (
                           <div className="flex flex-row ">
                             <div

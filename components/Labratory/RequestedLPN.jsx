@@ -1,6 +1,17 @@
 import React, { useState } from "react";
 // add a key to the object
-const Popup = ({ item, showPopup, mouseX, mouseY, displayedPallet, setDisplayedPallet, selectedLabRequest, setSelectedLabRequest, selectedPallet, setSelectedPallet }) => {
+const Popup = ({
+  item,
+  showPopup,
+  mouseX,
+  mouseY,
+  displayedPallet,
+  setDisplayedPallet,
+  selectedLabRequest,
+  setSelectedLabRequest,
+  selectedPallet,
+  setSelectedPallet,
+}) => {
   const popupStyle = {
     display: showPopup ? "block" : "none",
     position: "fixed",
@@ -50,28 +61,7 @@ const Popup = ({ item, showPopup, mouseX, mouseY, displayedPallet, setDisplayedP
 
     return (
       <></>
-    /*   <table style={tableStyle}>
-        <tbody>
-          {[...Array(numRows)].map((_, rowIdx) => (
-            <tr key={rowIdx}>
-              {[...Array(numCols)].map((_, colIdx) => {
-                const keyIdx = rowIdx * numCols + colIdx;
-                const key = keys[keyIdx];
-                const value = values[keyIdx];
-
-                return (
-                  <React.Fragment key={key}>
-                    <td style={thStyle}>
-                      <span style={keyStyle}>{key}:</span>
-                    </td>
-                    <td style={tdStyle}>{value}</td>
-                  </React.Fragment>
-                );
-              })}
-            </tr>
-          ))}
-        </tbody>
-      </table> */
+      
     );
   };
 
@@ -90,7 +80,7 @@ const RequestedLPN = ({
   setSelectedLabRequest,
   selectedPallet,
   setSelectedPallet,
-
+  labRequestStats
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
@@ -113,7 +103,7 @@ const RequestedLPN = ({
   const handlePalletClick = () => {
     setDisplayedPallet(item);
     setSelectedPallet(item);
-    console.log("selected pallet", selectedPallet)
+    
   };
 
   const handleMouseMove = (e) => {
@@ -123,15 +113,15 @@ const RequestedLPN = ({
 
   return (
     <div
-    style={{ backgroundColor: backgroundColor }}
-    className={`  text-white p-1 text-center  p-3 shadow-md shadow-gray-200 w-32  ${
-      isHovered ? "transform scale-105" : ""
-    } ${displayedPallet === item ? "selected-pallet" : ""}`}
-    onMouseEnter={handleMouseEnter}
-    onMouseLeave={handleMouseLeave}
-    onClick={handlePalletClick}
-    onMouseMove={handleMouseMove}
-  >
+      style={{ backgroundColor: backgroundColor }}
+      className={`  text-white p-1 text-center  p-3 shadow-md shadow-gray-200 w-32  ${
+        isHovered ? "transform scale-105" : ""
+      } ${displayedPallet === item ? "selected-pallet" : ""}`}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onClick={handlePalletClick}
+      onMouseMove={handleMouseMove}
+    >
       {item.LPN}
       {isHovered && !requestView && (
         <button
