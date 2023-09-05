@@ -43,7 +43,7 @@ const LabCheckTracker = ({ labRequests }) => {
             let statusHighlight = "";
 
             // Determine background color based on labRequest.status
-            
+
             switch (labRequest.status) {
               case "Pending":
                 statusBackgroundColor = "lightgray";
@@ -129,13 +129,26 @@ const LabCheckTracker = ({ labRequests }) => {
                         labRequests={labRequest.items}
                         labRequest={labRequest}
                       />
-                      <div className="w-full flex flex-row">
+                      <div className="w-full flex flex-row items-center justify-center">
                         <div
-                          className={`w-1/6 bg-white-500 hover:bg-blue-600 text-black border-green-400 border-2 font-semibold py-4 px-3 rounded-full transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer text-center text-sm ${
-                            labRequest.testResults === "Pending"
+                          className={`w-1/6 bg-white-500 mt-4 hover:bg-green-600 hover:text-white text-green-600 border-green-400 border-2 font-bold py-3 px-3 rounded-full transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer text-center text-sm ${
+                            labRequest.status === "Pending"
                               ? "opacity-0 pointer-events-none"
                               : ""
-                          }`}
+                          }  
+                          
+                          ${ labRequest.status === "Closed"
+                          ? "opacity-0 pointer-events-none"
+                          : ""}
+                          
+                          
+                          
+                          `
+
+                          
+                        
+                        
+                        }
                           onClick={async () => {
                             // Handle button click when it's enabled
                             if (
