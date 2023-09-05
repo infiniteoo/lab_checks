@@ -26,7 +26,7 @@ const LabRequestExpandedItem = ({
               case "Passed":
                 backgroundColor = "lightgreen";
                 break;
-              case "Denied":
+              case "Failed":
                 backgroundColor = "red";
                 break;
               default:

@@ -81,6 +81,26 @@ const LabCheckTracker = ({
     console.log(result);
   };
 
+  const handleDenyAll = async () => {
+    // Update the labRequest.testResults for all items in the labRequest
+    // Set the labRequest.testResults to "Passed"
+    // Update the labRequest.status to "Approved"
+    // Update the labRequest.dateCompleted to the current date
+    console.log("selectedLabRequest", selectedLabRequest);
+    console.log("selectedLabRequest._id", selectedLabRequest._id);
+
+    let result = await axios.post(`http://localhost:8888/api/deny-all`, {
+      id: selectedLabRequest._id,
+
+      testResults: "Failed",
+      status: "Denied",
+      dateApproved: new Date(),
+      testResultAcknowledgement: false,
+    });
+
+    console.log(result);
+  };
+
   return (
     <div className="w-full p-6 bg-white shadow-md rounded-lg ml-2">
       <h2 className="text-xl font-semibold mb-4 text-center">
@@ -92,6 +112,7 @@ const LabCheckTracker = ({
             const timeAgo = getTimeAgoInMinutes(labRequest.dateCreated); // Replace with your getTimeAgo function
             let statusBackgroundColor = "";
             let statusHighlight = "";
+            let statusFontColor = "";
 
             // Determine background color based on labRequest.status
             switch (labRequest.status) {
@@ -106,6 +127,7 @@ const LabCheckTracker = ({
               case "Denied":
                 statusBackgroundColor = "red";
                 statusHighlight = "Denied";
+                statusFontColor = "white";
                 break;
               default:
                 statusBackgroundColor = "gray";
@@ -167,8 +189,8 @@ const LabCheckTracker = ({
                         </span>
                       </h3>
                       <div
-                        style={{ backgroundColor: statusBackgroundColor }}
-                        className="text-right text-sm rounded p-1"
+                        style={{ backgroundColor: statusBackgroundColor, color: statusFontColor}}
+                        className="text-right text-sm rounded p-1 mt-1"
                       >
                         <p>Status: {statusHighlight}</p>
                       </div>
@@ -205,9 +227,7 @@ const LabCheckTracker = ({
                                 ? "opacity-0 pointer-events-none"
                                 : ""
                             }`}
-                            onClick={async () => {
-                              // Handle button click when it's enabled
-                            }}
+                            onClick={handleDenyAll}
                           >
                             Deny All
                           </div>
