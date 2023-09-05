@@ -70,9 +70,8 @@ const LabCheckTracker = ({
       id: selectedLabRequest._id,
 
       testResults: "Passed",
-      status: "Approved",
-      dateApproved: new Date(),
-      testResultAcknowledgement: false,
+      
+    
     });
 
     // Loop through all items in selectedLabRequest and update the background color
@@ -99,10 +98,9 @@ const LabCheckTracker = ({
     let result = await axios.post(`http://localhost:8888/api/deny-all`, {
       id: selectedLabRequest._id,
 
-      testResults: "Failed",
-      status: "Denied",
-      dateApproved: new Date(),
-      testResultAcknowledgement: false,
+      testResults: "Pending",
+      
+     
     });
 
     selectedLabRequest.items.forEach((item) => {
@@ -117,8 +115,7 @@ const LabCheckTracker = ({
     console.log(result);
   };
   const handlePassSelected = async (e) => {
-    console.log("EEEEE", selectedPallet.divID);
-    console.log("selectedPallet", selectedPallet);
+   
     let result = await axios.post(`http://localhost:8888/api/pass-selected`, {
       lpn: selectedPallet.LPN,
       id: selectedLabRequest._id,
@@ -176,10 +173,34 @@ const LabCheckTracker = ({
       (stat) =>
         stat._id === selectedLabRequest._id &&
         stat.testedPalletCount === stat.totalPalletCount
-    ) && selectedLabRequest.status !== "Closed";
+    ) && selectedLabRequest.status !== "Closed" && selectedLabRequest.status !== "Approved";
 
   const handleFinalizeResults = async () => {
-    console.log("finalized button hit");
+    // Update the labRequest.status to "Approved" via API
+    // Update the labRequest.dateCompleted to the current date via API
+    // Update the labRequest.testResultAcknowledgement to false via API
+    let status = "Approved";
+    // if any of the items in the labRequest have a testResults of "Failed", set status to "Denied"
+    selectedLabRequest.items.forEach((item) => {
+      if (item.testResults === "Failed") {
+        status = "Denied";
+      }
+    });
+
+
+
+    let result = await axios.post(
+      `http://localhost:8888/api/finalize-results`,
+      {
+        id: selectedLabRequest._id,
+        status: status,
+        dateCompleted: new Date(),
+        testResultAcknowledgement: false,
+      }
+    );
+    console.log(result);
+
+
   };
 
   return (

@@ -59,8 +59,6 @@ exports.approveAll = async (req, res) => {
       labRequestId,
       {
         testResults: "Passed",
-        status: "Approved",
-        dateApproved: new Date(),
       },
       { new: true }
     );
@@ -94,8 +92,6 @@ exports.denyAll = async (req, res) => {
       labRequestId,
       {
         testResults: "Failed",
-        status: "Denied",
-        dateApproved: new Date(),
       },
       { new: true }
     );
@@ -125,12 +121,12 @@ exports.passSelected = async (req, res) => {
 
     // Update the matching item within the specified Lab Request
     const result = await LabRequest.updateOne(
-      { _id: labRequestId, 'items.LPN': lpnToMatch },
+      { _id: labRequestId, "items.LPN": lpnToMatch },
       {
         $set: {
-          'items.$.testResults': 'Passed',
-          'items.$.status': 'Approved',
-          'items.$.dateApproved': new Date(),
+          "items.$.testResults": "Passed",
+          "items.$.status": "Approved",
+          "items.$.dateApproved": new Date(),
         },
       }
     );
@@ -154,12 +150,12 @@ exports.denySelected = async (req, res) => {
 
     // Update the matching item within the specified Lab Request
     const result = await LabRequest.updateOne(
-      { _id: labRequestId, 'items.LPN': lpnToMatch },
+      { _id: labRequestId, "items.LPN": lpnToMatch },
       {
         $set: {
-          'items.$.testResults': 'Failed',
-          'items.$.status': 'Denied',
-          'items.$.dateDenied': new Date(),
+          "items.$.testResults": "Failed",
+          "items.$.status": "Denied",
+          "items.$.dateDenied": new Date(),
         },
       }
     );
@@ -172,6 +168,40 @@ exports.denySelected = async (req, res) => {
     console.error("Error updating selected item:", error);
     res.status(500).json({
       error: "Failed to update selected item",
+    });
+  }
+};
+
+exports.finalizeResults = async (req, res) => {
+  // depending on the test results, update the lab request
+  try {
+    console.log('hello from finalizeresults')
+    // update the database with the status, dateApproved, dateDenied, and testResultsAcknowledgement
+    const labRequestId = req.body.id;
+    const testResults = req.body.status;
+    const dateCompleted = new Date();
+    const testResultAcknowledgement = false;
+
+    const updatedLabRequest = await LabRequest.findByIdAndUpdate(
+      labRequestId,
+      {
+        status: testResults,
+        dateCompleted: dateCompleted,
+        testResultAcknowledgement: testResultAcknowledgement,
+      },
+      { new: true }
+    );
+
+    res.json({
+      message: "Lab request updated successfully",
+      updatedLabRequest,
+    });
+
+
+  } catch (error) {
+    console.error("Error updating lab request:", error);
+    res.status(500).json({
+      error: "Failed to update lab request",
     });
   }
 };

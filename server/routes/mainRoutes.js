@@ -12,6 +12,7 @@ router.post("/approve-all", routeController.approveAll);
 router.post("/deny-all", routeController.denyAll);
 router.post("/pass-selected", routeController.passSelected);
 router.post("/deny-selected", routeController.denySelected);
+router.post("/finalize-results", routeController.finalizeResults);
 // More routes...
 
 module.exports = router;
