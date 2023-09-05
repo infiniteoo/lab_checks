@@ -264,7 +264,7 @@ const LabCheckTracker = ({
                       <div className="w-full flex flex-row justify-between mt-2">
                         <div className="flex flex-row h-10">
                           <div
-                            className={`w-full bg-green-500 hover:bg-yellow-500 text-white font-semibold  rounded-full transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer text-center text-sm px-5 ${
+                            className={`w-full bg-green-500 hover:bg-yellow-500 text-white font-semibold rounded-full transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer text-center justify-center items-center text-sm px-5 py-2 ${
                               labRequest.testResults === "Passed"
                                 ? "opacity-0 pointer-events-none"
                                 : ""
@@ -274,7 +274,7 @@ const LabCheckTracker = ({
                             Pass All
                           </div>
                           <div
-                            className={`w-full bg-red-500 hover:bg-yellow-500 text-white font-semibold  rounded-full transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer text-center text-sm ml-1 px-5 ${
+                            className={`w-full bg-red-500 hover:bg-yellow-500 text-white font-semibold  rounded-full transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer text-center text-sm ml-1 px-5  justify-center items-center${
                               labRequest.testResults === "Passed"
                                 ? "opacity-0 pointer-events-none"
                                 : ""
@@ -288,7 +288,7 @@ const LabCheckTracker = ({
                           <div className="flex flex-row h-10">
                             <button
                               onClick={handleFinalizeResults}
-                              className="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200"
+                              className="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200 items-center justify-center text-center py-1"
                             >
                               Finalize Results
                             </button>
@@ -297,7 +297,7 @@ const LabCheckTracker = ({
                         {displayedPallet.length !== 0 && (
                           <div className="flex flex-row ">
                             <div
-                              className={`w-full bg-green-500 hover:bg-yellow-500 text-white font-semibold rounded-full transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer flex-wrap text-center text-sm px-5 ${
+                              className={`w-full bg-green-500 hover:bg-yellow-500 text-white font-semibold rounded-full transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer flex-wrap text-center text-sm px-5 py-2 ${
                                 labRequest.testResults === "Passed"
                                   ? "opacity-0 pointer-events-none"
                                   : ""
