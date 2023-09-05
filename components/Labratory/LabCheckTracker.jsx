@@ -112,6 +112,18 @@ const LabCheckTracker = ({
     });
     console.log(result);
   };
+  const handleDenySelected = async () => {
+    console.log("selectedPallet", selectedPallet);
+    let result = await axios.post(`http://localhost:8888/api/deny-selected`, {
+      lpn: selectedPallet.LPN,
+      id: selectedLabRequest._id,
+      testResults: "Failed",
+      status: "Denied",
+      dateApproved: new Date(),
+      testResultAcknowledgement: false,
+    });
+    console.log(result);
+  };
 
   return (
     <div className="w-full p-6 bg-white shadow-md rounded-lg ml-2">
@@ -265,9 +277,7 @@ const LabCheckTracker = ({
                                   ? "opacity-0 pointer-events-none"
                                   : ""
                               }`}
-                              onClick={async () => {
-                                // Handle button click when it's enabled
-                              }}
+                              onClick={handleDenySelected}
                             >
                               Deny Selected
                             </div>

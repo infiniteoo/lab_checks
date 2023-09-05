@@ -11,6 +11,7 @@ router.post("/update/:labrequestid", routeController.updateLabRequest);
 router.post("/approve-all", routeController.approveAll);
 router.post("/deny-all", routeController.denyAll);
 router.post("/pass-selected", routeController.passSelected);
+router.post("/deny-selected", routeController.denySelected);
 // More routes...
 
 module.exports = router;
