@@ -3,9 +3,14 @@ import LabRequestExpandedItem from "./LabRequestItem";
 import { formatDistanceToNow } from "date-fns"; // Import date-fns function
 import axios from "axios";
 import HideCompletedSwitch from "./HideCompletedSwitch";
+import uuid from "uuid-with-v6";
 
-
-const LabCheckTracker = ({ labRequests, hideClosed, setHideClosed, setLabRequests }) => {
+const LabCheckTracker = ({
+  labRequests,
+  hideClosed,
+  setHideClosed,
+  setLabRequests,
+}) => {
   const [expanded, setExpanded] = useState({});
   const [isButtonEnabled, setButtonEnabled] = useState(false);
 
@@ -15,8 +20,6 @@ const LabCheckTracker = ({ labRequests, hideClosed, setHideClosed, setLabRequest
       [_id]: !prevExpanded[_id],
     }));
   };
-
-  
 
   // useEffect updates the component when expanded changes
   useEffect(() => {}, [expanded]);
@@ -96,10 +99,11 @@ const LabCheckTracker = ({ labRequests, hideClosed, setHideClosed, setLabRequest
             return (
               <>
                 <li
-                  key={`${labRequest._id}`}
+                  key={`${labRequest._id}-${uuid.v6()}`}
                   className={`border-2 rounded  p-2 text-xl cursor-pointer z-10 text-black`}
                   // Apply the background color
                 >
+                  
                   <div
                     className="flex flex-row justify-between"
                     onClick={() => toggleExpand(labRequest._id)}

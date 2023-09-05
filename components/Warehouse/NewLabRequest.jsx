@@ -5,6 +5,7 @@ import RequestedLPN from "./RequestedLPN";
 import AdditionalLPNs from "./AdditionalLPNs";
 import SubmitLabRequest from "./SubmitLabRequest";
 import EnterOrderNumber from "./EnterOrderNumber";
+import uuid from "uuid-with-v6";
 
 const NewLabRequest = ({
   formattedDate,
@@ -103,7 +104,7 @@ const NewLabRequest = ({
         {fileSelected && (
           <ul className="mt-1 flex flex-wrap justify-center items-stretch">
             {csvData.map((row, index) => (
-              <li key={index} className="mb-1 mr-1">
+              <li key={index  + "-" + uuid.v6()} className="mb-1 mr-1">
                 <RequestedLPN item={row} onRemove={onRemove} />
               </li>
             ))}

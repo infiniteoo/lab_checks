@@ -1,5 +1,6 @@
 import React from "react";
 import RequestedLPN from "./RequestedLPN";
+import uuid from "uuid-with-v6";
 
 const LabRequestExpandedItem = ({ labRequests, labRequest }) => {
   return (
@@ -26,7 +27,7 @@ const LabRequestExpandedItem = ({ labRequests, labRequest }) => {
 
             return (
               <li
-                key={`${item.id}-${index}`}
+                key={`${item.id}` + "-" + uuid.v6()}
                 className="mb-1 mr-1 m-1"
                 style={{ backgroundColor }}
               >
@@ -35,7 +36,7 @@ const LabRequestExpandedItem = ({ labRequests, labRequest }) => {
                   requestView={true}
                   backgroundColor={backgroundColor}
                   labRequest={labRequest}
-                  key={`${labRequest._id}-${index}`}
+                  key={`${labRequest._id}` + "-" + uuid.v6()}
                 />
               </li>
             );

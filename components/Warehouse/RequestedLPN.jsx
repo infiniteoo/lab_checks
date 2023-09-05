@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import uuid from "uuid-with-v6";
+
 // add a key to the object
 const Popup = ({ item, showPopup, mouseX, mouseY }) => {
   const popupStyle = {
@@ -38,7 +40,7 @@ const Popup = ({ item, showPopup, mouseX, mouseY }) => {
 
   const keyStyle = {
     fontWeight: "bold",
-     zIndex: 999,
+    zIndex: 999,
   };
 
   const renderTable = () => {
@@ -56,14 +58,14 @@ const Popup = ({ item, showPopup, mouseX, mouseY }) => {
       <table style={tableStyle}>
         <tbody>
           {[...Array(numRows)].map((_, rowIdx) => (
-            <tr key={rowIdx}>
+            <tr key={rowIdx  + "-" + uuid.v6()} >
               {[...Array(numCols)].map((_, colIdx) => {
                 const keyIdx = rowIdx * numCols + colIdx;
                 const key = keys[keyIdx];
                 const value = values[keyIdx];
 
                 return (
-                  <React.Fragment key={key}>
+                  <React.Fragment key={key  + "-" + uuid.v6()}>
                     <td style={thStyle}>
                       <span style={keyStyle}>{key}:</span>
                     </td>
@@ -140,6 +142,7 @@ const RequestedLPN = ({
         showPopup={showPopup}
         mouseX={mouseX}
         mouseY={mouseY}
+        key={item.LPN + "-" + uuid.v6()}
       />
     </div>
   );
