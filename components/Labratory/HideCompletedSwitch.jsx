@@ -1,10 +1,21 @@
 import React, { useState } from "react";
 
-const HideCompletedSwitch = () => {
-  const [isOn, setIsOn] = useState(false);
+const HideCompletedSwitch = ({labRequests, setLabRequests}) => {
+ 
+    const [unfilteredRequests, setUnfilteredRequests] = useState([]); 
+  const [isOn, setIsOn] = useState(true);
 
   const toggleSwitch = () => {
     setIsOn(!isOn);
+    if (isOn) {
+        setUnfilteredRequests(labRequests);
+        setLabRequests(labRequests.filter((request) => request.status !== "Closed"));
+        }
+    else {
+        // set lab requests to show all requests
+        setLabRequests(unfilteredRequests);
+        
+    }
   };
 
   return (

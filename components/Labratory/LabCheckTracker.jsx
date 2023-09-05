@@ -12,6 +12,7 @@ const LabCheckTracker = ({
   setSelectedPallet,
   selectedLabRequest,
   setSelectedLabRequest,
+  setLabRequests
 }) => {
   const [expanded, setExpanded] = useState({});
   const [isButtonEnabled, setButtonEnabled] = useState(false);
@@ -158,7 +159,7 @@ const LabCheckTracker = ({
       <div className="flex flex-row items-right justify-between">
       <div></div>
         <div className="">
-          <HideCompletedSwitch />
+          <HideCompletedSwitch labRequests={labRequests} setLabRequests={setLabRequests} />
         </div>
       </div>
       <ul className="mt-4">
