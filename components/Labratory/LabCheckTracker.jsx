@@ -225,7 +225,7 @@ const LabCheckTracker = ({
                     <div className="flex flex-col">
                       <h3 className="items-left text-xl">
                         <span className="font-bold">
-                          REQUEST #{index + 1} |
+                          REQUEST #{labRequest.items.length - index - 1} |
                         </span>{" "}
                         Order #: {labRequest.orderNumber}
                       </h3>
@@ -305,7 +305,7 @@ const LabCheckTracker = ({
                           <div className="flex flex-row h-10">
                             <button
                               onClick={handleFinalizeResults}
-                              className="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200 items-center justify-center text-center py-1"
+                              className="px-4 py-2 text-white bg-black rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200 items-center  justify-center text-center py-1"
                             >
                               Finalize Results
                             </button>
