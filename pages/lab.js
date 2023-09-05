@@ -5,6 +5,7 @@ import axios from "axios";
 import LabCheckTracker from "../components/Labratory/LabCheckTracker";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AutomationTaskbar from "@/components/Labratory/AutomationTaskbar";
 
 export default function Lab() {
   const formattedDate = format(new Date(), "HH:mm:ss MM/dd/yyyy");
@@ -14,7 +15,7 @@ export default function Lab() {
   const [selectedPallet, setSelectedPallet] = useState([]);
   const [selectedLabRequest, setSelectedLabRequest] = useState([]);
   const [hideClosed, setHideClosed] = useState(true);
-
+  const [automationSwitch, setAutomationSwitch] = useState(false); 
   const fetchLabRequests = async () => {
     try {
       const response = await axios.get(
@@ -28,7 +29,7 @@ export default function Lab() {
         );
         // display data so that the newest is at the top
         filteredResponse.reverse();
-        
+
         // compared filteredResponse to existing labRequests and only update if different
         if (JSON.stringify(filteredResponse) === JSON.stringify(labRequests)) {
           console.log("items are the same, not updating");
@@ -64,6 +65,10 @@ export default function Lab() {
   useEffect(() => {
     fetchLabRequests();
   }, []);
+  useEffect(() => {
+    console.log("automationSwitch changed to: ", automationSwitch)
+    
+  }, [automationSwitch]);
 
   useEffect(() => {
     fetchLabRequests();
@@ -100,7 +105,8 @@ export default function Lab() {
           <img src="./scientist.svg" alt="lab" className="w-1/2 h-40" />
         </div>
         <div className="w-full h-2 bg-gradient-to-r from-green-500 via-blue-500 to-green-500 relative mt-5 rounded-full"></div>
-        <div className="flex w-full flex-row mt-5">
+        <AutomationTaskbar automationSwitch={automationSwitch} setAutomationSwitch={setAutomationSwitch}/>
+        <div className="flex w-full flex-row mt-2">
           <LabratoryTools
             formattedDate={formattedDate}
             fetchLabRequests={fetchLabRequests}

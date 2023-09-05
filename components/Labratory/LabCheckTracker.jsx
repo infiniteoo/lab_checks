@@ -154,10 +154,6 @@ const LabCheckTracker = ({
 
   return (
     <div className="w-full p-6 bg-white shadow-md rounded-lg ml-2 ">
-      <h2 className="text-xl font-semibold mb-4 text-center">
-        Previous Lab Requests
-      </h2>
-
       <div className="flex flex-row items-right justify-between">
         <div></div>
         <div className="">
@@ -257,7 +253,7 @@ const LabCheckTracker = ({
                         style={{
                           backgroundColor: statusBackgroundColor,
                           color: statusFontColor,
-                          border: statusBorder
+                          border: statusBorder,
                         }}
                         className="text-right text-sm rounded p-1 mt-1"
                       >
