@@ -100,6 +100,18 @@ const LabCheckTracker = ({
 
     console.log(result);
   };
+  const handlePassSelected = async () => {
+    console.log("selectedPallet", selectedPallet);
+    let result = await axios.post(`http://localhost:8888/api/pass-selected`, {
+      lpn: selectedPallet.LPN,
+      id: selectedLabRequest._id,
+      testResults: "Passed",
+      status: "Approved",
+      dateApproved: new Date(),
+      testResultAcknowledgement: false,
+    });
+    console.log(result);
+  };
 
   return (
     <div className="w-full p-6 bg-white shadow-md rounded-lg ml-2">
@@ -189,7 +201,10 @@ const LabCheckTracker = ({
                         </span>
                       </h3>
                       <div
-                        style={{ backgroundColor: statusBackgroundColor, color: statusFontColor}}
+                        style={{
+                          backgroundColor: statusBackgroundColor,
+                          color: statusFontColor,
+                        }}
                         className="text-right text-sm rounded p-1 mt-1"
                       >
                         <p>Status: {statusHighlight}</p>
@@ -240,9 +255,7 @@ const LabCheckTracker = ({
                                   ? "opacity-0 pointer-events-none"
                                   : ""
                               }`}
-                              onClick={async () => {
-                                // Handle button click when it's enabled
-                              }}
+                              onClick={handlePassSelected}
                             >
                               Pass Selected
                             </div>
