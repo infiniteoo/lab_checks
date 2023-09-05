@@ -75,6 +75,16 @@ const LabCheckTracker = ({
       testResultAcknowledgement: false,
     });
 
+    // Loop through all items in selectedLabRequest and update the background color
+    selectedLabRequest.items.forEach((item) => {
+      const divID = `${selectedLabRequest._id}-${item.LPN}`;
+
+      const elementToChange = document.querySelector(`[id="${divID}"]`);
+      if (elementToChange) {
+        elementToChange.style.backgroundColor = "lightgreen";
+      }
+    });
+
     console.log(result);
   };
 
@@ -93,6 +103,15 @@ const LabCheckTracker = ({
       status: "Denied",
       dateApproved: new Date(),
       testResultAcknowledgement: false,
+    });
+
+    selectedLabRequest.items.forEach((item) => {
+      const divID = `${selectedLabRequest._id}-${item.LPN}`;
+
+      const elementToChange = document.querySelector(`[id="${divID}"]`);
+      if (elementToChange) {
+        elementToChange.style.backgroundColor = "red";
+      }
     });
 
     console.log(result);
@@ -114,8 +133,6 @@ const LabCheckTracker = ({
       status: "Passed",
       divID: selectedPallet.divID,
     });
-
-
   };
   const handleDenySelected = async () => {
     console.log("selectedPallet", selectedPallet);

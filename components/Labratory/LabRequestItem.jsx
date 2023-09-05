@@ -19,6 +19,7 @@ const LabRequestExpandedItem = ({
   useEffect(() => {
    
     if (statusChange.status === "Passed" || statusChange.status === "Failed") {
+      console.log("STATUS CHANGE", statusChange)
       // Find the element with the matching id or lpn
       const elementToChange = document.querySelector(`[id="${statusChange.divID}"]`);
   
