@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import RequestedLPN from "./RequestedLPN";
 
 const LabRequestExpandedItem = ({
@@ -10,7 +10,30 @@ const LabRequestExpandedItem = ({
   setSelectedLabRequest,
   selectedPallet,
   setSelectedPallet,
+  statusChange,
+  setStatusChange
 }) => {
+
+  
+
+  useEffect(() => {
+   
+    if (statusChange.status === "Passed" || statusChange.status === "Failed") {
+      // Find the element with the matching id or lpn
+      const elementToChange = document.querySelector(`[id="${statusChange.divID}"]`);
+  
+      // Check if the element exists before modifying its style
+      if (elementToChange) {
+        // Update the background color based on the status
+        console.log("ELEMENT TO CHANGE", elementToChange);
+        elementToChange.style.backgroundColor = statusChange.status === "Passed" ? "lightgreen" : "red";
+      }
+    }
+  }, [statusChange]);
+  
+
+
+
   return (
     <div className="flex flex-col items-center">
       <ul className="mt-2 flex flex-wrap justify-center items-stretch">
@@ -51,6 +74,8 @@ const LabRequestExpandedItem = ({
                   setSelectedLabRequest={setSelectedLabRequest}
                   selectedPallet={selectedPallet}
                   setSelectedPallet={setSelectedPallet}
+                  statusChange={statusChange}
+                  setStatusChange={setStatusChange}
                 />
               </li>
             );

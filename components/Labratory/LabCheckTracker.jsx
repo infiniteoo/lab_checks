@@ -19,6 +19,7 @@ const LabCheckTracker = ({
   const [expanded, setExpanded] = useState({});
   const [isButtonEnabled, setButtonEnabled] = useState(false);
   const [totalTestedPallets, setTotalTestedPallets] = useState(0);
+  const [statusChange, setStatusChange] = useState({});
 
   console.log("displayedPallet", displayedPallet);
   const toggleExpand = (_id) => {
@@ -96,7 +97,8 @@ const LabCheckTracker = ({
 
     console.log(result);
   };
-  const handlePassSelected = async () => {
+  const handlePassSelected = async (e) => {
+    console.log("EEEEE", selectedPallet.divID);
     console.log("selectedPallet", selectedPallet);
     let result = await axios.post(`http://localhost:8888/api/pass-selected`, {
       lpn: selectedPallet.LPN,
@@ -107,6 +109,13 @@ const LabCheckTracker = ({
       testResultAcknowledgement: false,
     });
     console.log(result);
+
+    setStatusChange({
+      status: "Passed",
+      divID: selectedPallet.divID,
+    });
+
+
   };
   const handleDenySelected = async () => {
     console.log("selectedPallet", selectedPallet);
@@ -119,6 +128,10 @@ const LabCheckTracker = ({
       testResultAcknowledgement: false,
     });
     console.log(result);
+    setStatusChange({
+      status: "Failed",
+      divID: selectedPallet.divID,
+    });
   };
 
   const calculateLabRequestStats = () => {
@@ -153,7 +166,7 @@ const LabCheckTracker = ({
   };
 
   return (
-    <div className="w-full p-6 bg-white shadow-md rounded-lg ml-2 ">
+    <div className="w-full  pl-6 pr-6 pb-6 pt-2 bg-white shadow-md rounded-lg ml-2 ">
       <div className="flex flex-row items-right justify-between">
         <div></div>
         <div className="">
@@ -213,7 +226,7 @@ const LabCheckTracker = ({
                   // Apply the background color
                 >
                   <div
-                    className="flex flex-row justify-between"
+                    className={`flex flex-row justify-between   `}
                     onClick={() => {
                       handleLabRequestClick(labRequest._id);
                     }}
@@ -273,6 +286,8 @@ const LabCheckTracker = ({
                         setSelectedLabRequest={setSelectedLabRequest}
                         selectedPallet={selectedPallet}
                         setSelectedPallet={setSelectedPallet}
+                        statusChange={statusChange}
+                        setStatusChange={setStatusChange}
                       />
                       <div className="w-full flex flex-row justify-between mt-2">
                         <div className="flex flex-row h-10">
@@ -317,17 +332,17 @@ const LabCheckTracker = ({
                               }`}
                               onClick={handlePassSelected}
                             >
-                              Pass Selected
+                              Pass
                             </div>
                             <div
-                              className={`w-full bg-red-500 hover:bg-yellow-500 text-white font-semibold  rounded-full transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer ml-1 text-center text-sm px-5 ${
+                              className={`w-full bg-red-500 hover:bg-yellow-500 text-white font-semibold  rounded-full transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer ml-1 text-center text-sm py-2 px-5 ${
                                 labRequest.testResults === "Passed"
                                   ? "opacity-0 pointer-events-none"
                                   : ""
                               }`}
                               onClick={handleDenySelected}
                             >
-                              Deny Selected
+                              Deny
                             </div>
                           </div>
                         )}

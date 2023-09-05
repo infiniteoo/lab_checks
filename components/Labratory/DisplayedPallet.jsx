@@ -6,7 +6,7 @@ const DisplayedPallet = ({ item }) => {
     backgroundColor: "white",
     padding: "10px",
     color: "black",
-    display: "flex"
+    display: "flex",
   };
 
   const tableContainerStyle = {
@@ -16,25 +16,23 @@ const DisplayedPallet = ({ item }) => {
   };
 
   const tableStyle = {
-    flex: "0 0 calc(50% - 20px)",
+    flex: "1", // Allow the table to stretch and fill the container
     marginBottom: "20px",
+    minWidth: "300px", // Minimum width to avoid extreme shrinking
   };
 
   const thStyle = {
     backgroundColor: "#f2f2f2",
     padding: "8px",
     textAlign: "left",
-    
   };
 
   const tdStyle = {
-    
     padding: "8px",
     borderBottom: "1px solid #ddd",
   };
 
   const keyStyle = {
-    
     fontWeight: "bold",
   };
 

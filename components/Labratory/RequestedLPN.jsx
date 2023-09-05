@@ -59,10 +59,7 @@ const Popup = ({
     const numCols = 4;
     const numRows = Math.ceil(keys.length / numCols);
 
-    return (
-      <></>
-      
-    );
+    return <></>;
   };
 
   return <div style={popupStyle}>{renderTable()}</div>;
@@ -80,7 +77,9 @@ const RequestedLPN = ({
   setSelectedLabRequest,
   selectedPallet,
   setSelectedPallet,
-  labRequestStats
+  labRequestStats,
+  statusChange,
+  setStatusChange,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
@@ -100,10 +99,13 @@ const RequestedLPN = ({
     onRemove(item);
   };
 
-  const handlePalletClick = () => {
+  const handlePalletClick = (e) => {
+    console.log("EVENT CLICK", e);
+
     setDisplayedPallet(item);
-    setSelectedPallet(item);
-    
+    setSelectedPallet({item, divID: e.target.id});
+   
+   
   };
 
   const handleMouseMove = (e) => {
@@ -116,7 +118,8 @@ const RequestedLPN = ({
       style={{ backgroundColor: backgroundColor }}
       className={`  text-white p-1 text-center  p-3 shadow-md shadow-gray-200 w-32  ${
         isHovered ? "transform scale-105" : ""
-      } ${displayedPallet === item ? "selected-pallet" : ""}`}
+      } ${selectedPallet === item ? "selected-pallet" : ""}`}
+      id={selectedLabRequest._id + "-" + item.LPN}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={handlePalletClick}
