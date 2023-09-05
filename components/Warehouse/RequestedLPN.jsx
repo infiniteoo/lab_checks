@@ -20,21 +20,25 @@ const Popup = ({ item, showPopup, mouseX, mouseY }) => {
     width: "100%",
     borderCollapse: "collapse",
     marginTop: "10px",
+    zIndex: 999,
   };
 
   const thStyle = {
     backgroundColor: "#f2f2f2",
     padding: "8px",
     textAlign: "left",
+    zIndex: 999,
   };
 
   const tdStyle = {
     padding: "8px",
     borderBottom: "1px solid #ddd",
+    zIndex: 999,
   };
 
   const keyStyle = {
     fontWeight: "bold",
+     zIndex: 999,
   };
 
   const renderTable = () => {

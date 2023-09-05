@@ -10,14 +10,46 @@ export default function Warehouse() {
   const formattedDate = format(new Date(), "HH:mm:ss MM/dd/yyyy");
   const [labRequests, setLabRequests] = useState([]);
   const [labRequestsUpdated, setLabRequestsUpdated] = useState(false);
-
+  const [hideClosed, setHideClosed] = useState(true);
+  
   const fetchLabRequests = async () => {
     try {
       const response = await axios.get(
         "http://localhost:8888/api/lab-requests"
       );
-      setLabRequests(response.data); // Update state with fetched lab requests
-      setLabRequestsUpdated(true); // Signal that labRequests have been updated
+
+      // if hideClosed is true, filter out closed requests from response.data
+      if (hideClosed === true) {
+        const filteredResponse = response.data.filter(
+          (labRequest) => labRequest.status !== "Closed"
+        );
+        // display data so that the newest is at the top
+        filteredResponse.reverse();
+
+        // compared filteredResponse to existing labRequests and only update if different
+        if (JSON.stringify(filteredResponse) === JSON.stringify(labRequests)) {
+          console.log("items are the same, not updating");
+          return;
+        } else {
+          // If different, update state
+          console.log("items are different, updating");
+          setLabRequests(filteredResponse); // Update state with fetched lab requests
+          setLabRequestsUpdated(true); // Signal that labRequests have been updated
+          return;
+        }
+      } else {
+        // compared response.data to existing labRequests and only update if different
+        if (JSON.stringify(response.data) === JSON.stringify(labRequests)) {
+          console.log("items are the same, not updating");
+          return;
+        } else {
+          // If different, update state
+          console.log("items are different, updating");
+          setLabRequests(response.data); // Update state with fetched lab requests
+          setLabRequestsUpdated(true); // Signal that labRequests have been updated
+          return;
+        }
+      }
     } catch (error) {
       console.error("Error fetching lab requests:", error);
     }
@@ -68,6 +100,8 @@ export default function Warehouse() {
         <LabCheckTracker
           labRequests={labRequests}
           setLabRequests={setLabRequests}
+          hideClosed={hideClosed}
+          setHideClosed={setHideClosed}
         />
       </div>
       <div>

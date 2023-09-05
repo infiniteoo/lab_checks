@@ -17,7 +17,7 @@ const LabRequestExpandedItem = ({ labRequests, labRequest }) => {
               case "Passed":
                 backgroundColor = "lightgreen";
                 break;
-              case "Denied":
+              case "Failed":
                 backgroundColor = "red";
                 break;
               default:
