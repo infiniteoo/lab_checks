@@ -12,6 +12,7 @@ export default function Warehouse() {
   const [labRequests, setLabRequests] = useState([])
   const [labRequestsUpdated, setLabRequestsUpdated] = useState(false)
   const [hideClosed, setHideClosed] = useState(true)
+  const [selectedLabRequest, setSelectedLabRequest] = useState({})
 
   const fetchLabRequests = async () => {
     try {
@@ -53,6 +54,10 @@ export default function Warehouse() {
       console.error('Error fetching lab requests:', error)
     }
   }
+
+  useEffect(() => {
+    fetchLabRequests()
+  }, [hideClosed])
 
   useEffect(() => {
     fetchLabRequests()
