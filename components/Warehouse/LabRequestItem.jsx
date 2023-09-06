@@ -28,7 +28,7 @@ const LabRequestExpandedItem = ({ labRequests, labRequest }) => {
             return (
               <li
                 key={`${item.id}` + "-" + uuid.v6()}
-                className="mb-1 mr-1 m-1"
+                className="mb-1 mr-1 m-1 z-1"
                 style={{ backgroundColor }}
               >
                 <RequestedLPN

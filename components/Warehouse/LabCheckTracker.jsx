@@ -100,11 +100,11 @@ const LabCheckTracker = ({
               <>
                 <li
                   key={`${labRequest._id}-${uuid.v6()}`}
-                  className={`border-2 rounded  p-2 text-xl cursor-pointer z-10 text-black`}
+                  className={`border-2 rounded  p-2 text-xl cursor-pointer z-0 text-black`}
                   // Apply the background color
                 >
                   <div
-                    className="flex flex-row justify-between"
+                    className="flex flex-row justify-between z-0"
                     onClick={() => toggleExpand(labRequest._id)}
                   >
                     <div className="flex flex-col">
@@ -143,7 +143,7 @@ const LabCheckTracker = ({
                           backgroundColor: statusBackgroundColor,
                           color: statusFontColor,
                         }}
-                        className="text-right text-sm rounded p-1 mt-1 z-10"
+                        className="text-right text-sm rounded p-1 mt-1 z-1"
                       >
                         <p>Status: {statusHighlight}</p>
                       </div>
@@ -156,9 +156,9 @@ const LabCheckTracker = ({
                         labRequests={labRequest.items}
                         labRequest={labRequest}
                       />
-                      <div className="w-full flex flex-row items-center justify-center z-10">
+                      <div className="w-full flex flex-row items-center justify-center z-auto ">
                         <div
-                          className={`w-1/6 bg-white-500 mt-4 hover:bg-green-600 hover:text-white text-green-600 border-green-400 border-2 font-bold py-3 px-3 rounded-full transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer text-center text-sm z-10 ${
+                          className={`w-1/6 bg-white-500 mt-4 hover:bg-green-600 hover:text-white text-green-600 border-green-400 border-2 font-bold py-3 px-3 rounded-full transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer text-center text-sm z-1 ${
                             labRequest.status === "Pending"
                               ? "opacity-0 pointer-events-none"
                               : ""
@@ -168,11 +168,7 @@ const LabCheckTracker = ({
                             labRequest.status === "Closed"
                               ? "opacity-0 pointer-events-none"
                               : ""
-                          }
-                          
-                          
-                          
-                          `}
+                          } `}
                           onClick={async () => {
                             // Handle button click when it's enabled
                             if (
