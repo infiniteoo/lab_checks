@@ -10,6 +10,7 @@ const SubmitLabRequest = ({
   orderNumber,
   setLabRequests,
   setLabRequestsUpdated,
+  setOrderNumber,
 }) => {
   const handleSubmit = async () => {
     try {
@@ -38,6 +39,7 @@ const SubmitLabRequest = ({
       ]);
       setCsvData([]); // Clear the csvData
       setFileSelected(false);
+      setOrderNumber("");
 
       // Display a success message
       toast.success("Lab request submitted successfully!");

@@ -123,6 +123,7 @@ const NewLabRequest = ({
           orderNumber={orderNumber}
           setLabRequestsUpdated={setLabRequestsUpdated}
           setLabRequests={setLabRequests}
+          setOrderNumber={setOrderNumber}
         />
       )}
     </div>
