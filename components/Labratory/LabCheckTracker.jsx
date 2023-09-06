@@ -265,7 +265,7 @@ const LabCheckTracker = ({
                     <div className="flex flex-col">
                       <h3 className="items-left text-xl">
                         <span className="font-bold">
-                          REQUEST #{labRequest.items.length - index - 1} |
+                          REQUEST #{labRequest.items.length - index + 1} |
                         </span>{" "}
                         Order #: {labRequest.orderNumber}
                       </h3>

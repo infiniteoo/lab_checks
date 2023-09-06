@@ -1,5 +1,5 @@
-import React from "react";
-import Link from "next/link";
+import React from 'react'
+import Link from 'next/link'
 
 export default function Splash() {
   return (
@@ -8,7 +8,7 @@ export default function Splash() {
         <div
           className="hidden bg-cover lg:block lg:w-full"
           style={{
-            backgroundImage: "url(./samples.jpg)",
+            backgroundImage: 'url(./samples.jpg)',
           }}
         ></div>
 
@@ -17,8 +17,9 @@ export default function Splash() {
             <h1 className="text-7xl mb-4">
               <div className="flex flex-col justify-start">
                 <div className="items-left ">
-                  <span className="text-bold">Welcome </span>
-                  <span className="text-gray-500">to</span>
+                  <span className="text-bold text-6xl">
+                    Welcome <span className="text-gray-400"> to</span>
+                  </span>
                 </div>
                 <div className="items-right text-right ">
                   <span className="text-blue-500 text-7xl">PalletTest</span>
@@ -34,7 +35,7 @@ export default function Splash() {
             src="/alien_science.svg"
             alt="Alien Science"
             className="w-64 h-64 mb-4"
-            style={{ transform: "scaleX(-1)" }}
+            style={{ transform: 'scaleX(-1)' }}
           />
           <h2 className="text-2xl text-gray-600 mb-8">Choose Your Division</h2>
           {/* Buttons */}
@@ -56,5 +57,5 @@ export default function Splash() {
         </div>
       </div>
     </div>
-  );
+  )
 }

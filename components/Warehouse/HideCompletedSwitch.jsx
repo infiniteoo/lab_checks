@@ -6,24 +6,18 @@ const HideCompletedSwitch = ({
   hideClosed,
   setHideClosed,
 }) => {
-  const [isOn, setIsOn] = useState(false);
-
   const toggleSwitch = () => {
-    setIsOn(!isOn);
-    if (isOn) {
+    if (hideClosed === false) {
       setHideClosed(true);
-      console.log(hideClosed);
     } else {
-      // set lab requests to show all requests
       setHideClosed(false);
-      console.log(hideClosed);
     }
   };
 
   return (
     <div className="flex flex-col justify-between items-center text-bold">
       <p className="text-gray-500 text-sm mb-1 ">
-        {isOn ? "Show Closed Requests" : "Show Closed Requests"}
+        {hideClosed ? "Show Closed Requests" : "Show Closed Requests"}
       </p>
       <div
         className={`relative w-16 h-7 rounded-full bg-gray-300 p-1 cursor-pointer pb-6  border-2 ${
