@@ -26,7 +26,9 @@ const SubmitLabRequest = ({
 
       // Make a POST request to the API with the csvData
       let result = await axios.post(
-        "http://localhost:8888/api/lab-requests",
+        process.env.NEXT_PUBLIC_ENV === "development"
+          ? "http://localhost:8888/api/lab-requests"
+          : "https://pallettest.com/api/lab-requests",
         csvData
       );
 

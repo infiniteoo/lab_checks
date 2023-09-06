@@ -175,12 +175,12 @@ const LabCheckTracker = ({
                               labRequest.status !== "Pending" &&
                               labRequest.status !== "Closed"
                             ) {
-                              console.log("labRequest._id", labRequest._id);
-                              console.log("Button clicked!");
                               // axios post to pass testResultAcknowledgement to true
 
                               let response = await axios.post(
-                                `http://localhost:8888/api/update/${labRequest._id}`,
+                                process.env.NEXT_PUBLIC_ENV === "development"
+                                  ? `http://localhost:8888/api/update/${labRequest._id}`
+                                  : `https://pallettest.com/api/update/${labRequest._id}`,
                                 {
                                   testResultAcknowledgement: true,
                                   status: "Closed",

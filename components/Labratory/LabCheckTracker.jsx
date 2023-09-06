@@ -66,11 +66,17 @@ const LabCheckTracker = ({
     console.log("selectedLabRequest", selectedLabRequest);
     console.log("selectedLabRequest._id", selectedLabRequest._id);
 
-    let result = await axios.post(`http://localhost:8888/api/approve-all`, {
-      id: selectedLabRequest._id,
+    let result = await axios.post(
+      process.env.NEXT_PUBLIC_ENV === "development"
+        ? `http://localhost:8888/api/approve-all`
+        : `https://pallettest.com/api/approve-all`,
 
-      testResults: "Passed",
-    });
+      {
+        id: selectedLabRequest._id,
+
+        testResults: "Passed",
+      }
+    );
 
     // Loop through all items in selectedLabRequest and update the background color
     selectedLabRequest.items.forEach((item) => {
@@ -93,11 +99,17 @@ const LabCheckTracker = ({
     console.log("selectedLabRequest", selectedLabRequest);
     console.log("selectedLabRequest._id", selectedLabRequest._id);
 
-    let result = await axios.post(`http://localhost:8888/api/deny-all`, {
-      id: selectedLabRequest._id,
+    let result = await axios.post(
+      process.env.NEXT_PUBLIC_ENV === "development"
+        ? `http://localhost:8888/api/deny-all`
+        : `https://pallettest.com/api/deny-all`,
 
-      testResults: "Pending",
-    });
+      {
+        id: selectedLabRequest._id,
+
+        testResults: "Pending",
+      }
+    );
 
     selectedLabRequest.items.forEach((item) => {
       const divID = `${selectedLabRequest._id}-${item.LPN}`;
@@ -111,14 +123,21 @@ const LabCheckTracker = ({
     console.log(result);
   };
   const handlePassSelected = async (e) => {
-    let result = await axios.post(`http://localhost:8888/api/pass-selected`, {
-      lpn: selectedPallet.LPN,
-      id: selectedLabRequest._id,
-      testResults: "Passed",
-      status: "Approved",
-      dateApproved: new Date(),
-      testResultAcknowledgement: false,
-    });
+    console.log("selectedPallet", selectedPallet);
+    let result = await axios.post(
+      process.env.NEXT_PUBLIC_ENV === "development"
+        ? `http://localhost:8888/api/pass-selected`
+        : `https://pallettest.com/api/pass-selected`,
+
+      {
+        lpn: selectedPallet.item.LPN,
+        id: selectedLabRequest._id,
+        testResults: "Passed",
+        status: "Approved",
+        dateApproved: new Date(),
+        testResultAcknowledgement: false,
+      }
+    );
     console.log(result);
 
     setStatusChange({
@@ -127,15 +146,19 @@ const LabCheckTracker = ({
     });
   };
   const handleDenySelected = async () => {
-    console.log("selectedPallet", selectedPallet);
-    let result = await axios.post(`http://localhost:8888/api/deny-selected`, {
-      lpn: selectedPallet.LPN,
-      id: selectedLabRequest._id,
-      testResults: "Failed",
-      status: "Denied",
-      dateApproved: new Date(),
-      testResultAcknowledgement: false,
-    });
+    let result = await axios.post(
+      process.env.NEXT_PUBLIC_ENV === "development"
+        ? `http://localhost:8888/api/deny-selected`
+        : `https://pallettest.com/api/deny-selected`,
+      {
+        lpn: selectedPallet.item.LPN,
+        id: selectedLabRequest._id,
+        testResults: "Failed",
+        status: "Denied",
+        dateApproved: new Date(),
+        testResultAcknowledgement: false,
+      }
+    );
     console.log(result);
     setStatusChange({
       status: "Failed",
@@ -185,7 +208,9 @@ const LabCheckTracker = ({
     });
 
     let result = await axios.post(
-      `http://localhost:8888/api/finalize-results`,
+      process.env.NEXT_PUBLIC_ENV === "development"
+        ? `http://localhost:8888/api/finalize-results`
+        : `https://pallettest.com/api/finalize-results`,
       {
         id: selectedLabRequest._id,
         status: status,

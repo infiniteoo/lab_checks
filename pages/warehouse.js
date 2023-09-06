@@ -16,7 +16,11 @@ export default function Warehouse() {
 
   const fetchLabRequests = async () => {
     try {
-      const response = await axios.get('http://localhost:8888/api/lab-requests')
+      const response = await axios.get(
+        process.env.NEXT_PUBLIC_ENV === 'development'
+          ? 'http://localhost:8888/api/lab-requests'
+          : 'https://pallettest.com/api/lab-requests',
+      )
 
       // if hideClosed is true, filter out closed requests from response.data
       if (hideClosed === true) {
