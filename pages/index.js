@@ -28,7 +28,7 @@ export default function Splash() {
             </h1>
           </div>
           <h2 className="text-xl text-gray-600 mb-8">
-            fully automated warehouse-to-labratory testing
+            fully automated warehouse-to-Laboratory testing
           </h2>
           {/* Header Image */}
           <img

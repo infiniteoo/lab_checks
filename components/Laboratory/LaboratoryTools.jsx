@@ -2,9 +2,9 @@
 import React, { useState } from "react";
 
 import DisplayedPallet from "./DisplayedPallet";
-import "./LabratoryTools.css";
+import "./LaboratoryTools.css";
 
-const LabratoryTools = ({
+const LaboratoryTools = ({
   displayedPallet,
   setDisplayedPallet,
   selectedPallet,
@@ -33,4 +33,4 @@ const LabratoryTools = ({
   );
 };
 
-export default LabratoryTools;
+export default LaboratoryTools;

@@ -1,5 +1,5 @@
 import React from "react";
-import "./LabratoryTools.css"; // Import your CSS file
+import "./LaboratoryTools.css"; // Import your CSS file
 
 const DisplayedPallet = ({ item }) => {
   const popupStyle = {

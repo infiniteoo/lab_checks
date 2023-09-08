@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
-import LabratoryTools from '../components/Labratory/LabratoryTools'
+import LaboratoryTools from '../components/Laboratory/LaboratoryTools'
 import { format } from 'date-fns' // Import date-fns format function
 import axios from 'axios'
-import LabCheckTracker from '../components/Labratory/LabCheckTracker'
+import LabCheckTracker from '../components/Laboratory/LabCheckTracker'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import AutomationTaskbar from '@/components/Labratory/AutomationTaskbar'
+import AutomationTaskbar from '../components/Laboratory/Automation/AutomationTaskbar'
 
 export default function Lab() {
   const formattedDate = format(new Date(), 'HH:mm:ss MM/dd/yyyy')
@@ -101,7 +101,7 @@ export default function Lab() {
         <div className="flex flex-row items-center justify-center">
           <div className="flex flex-col items-left justify-center">
             <h1 className="text-5xl font-bold text-right">
-              Welcome to the <span className="text-blue-500">Labratory</span>
+              Welcome to the <span className="text-blue-500">Laboratory</span>
             </h1>
             <p className="text-lg text-gray-500 text-center mt-2 border-2 border-gray-300 text-bold rounded p-1 shadow-sm shadow-blue-300">
               automated lab approval requests
@@ -115,7 +115,7 @@ export default function Lab() {
           setAutomationSwitch={setAutomationSwitch}
         />
         <div className="flex w-full flex-row mt-2">
-          <LabratoryTools
+          <LaboratoryTools
             formattedDate={formattedDate}
             fetchLabRequests={fetchLabRequests}
             setLabRequests={setLabRequests}

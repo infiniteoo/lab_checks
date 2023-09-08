@@ -1,0 +1,26 @@
+.automation-status {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  color: #fff;
+  justify-content: flex-end;
+}
+
+.status-display {
+  font-size: 14px;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.status-display.idle {
+  background-color: #444;
+  color: #999;
+}
+
+.status-display.running {
+  background-color: #0f0; /* Green color */
+  color: #fff;
+}
