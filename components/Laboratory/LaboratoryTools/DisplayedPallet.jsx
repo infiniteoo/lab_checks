@@ -1,40 +1,8 @@
 import React from "react";
-import "./LaboratoryTools.css"; // Import your CSS file
+
+import * as styles from "./DisplayedPalletStyles";
 
 const DisplayedPallet = ({ item }) => {
-  const popupStyle = {
-    backgroundColor: "white",
-    padding: "10px",
-    color: "black",
-    display: "flex",
-  };
-
-  const tableContainerStyle = {
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
-  };
-
-  const tableStyle = {
-    flex: "1", // Allow the table to stretch and fill the container
-    marginBottom: "20px",
-    minWidth: "300px", // Minimum width to avoid extreme shrinking
-  };
-
-  const thStyle = {
-    backgroundColor: "#f2f2f2",
-    padding: "8px",
-    textAlign: "left",
-  };
-
-  const tdStyle = {
-    padding: "8px",
-    borderBottom: "1px solid #ddd",
-  };
-
-  const keyStyle = {
-    fontWeight: "bold",
-  };
   const renderTable = () => {
     const filteredItems = Object.entries(item).filter(
       ([, value]) => value !== null && value !== undefined
@@ -47,7 +15,7 @@ const DisplayedPallet = ({ item }) => {
     const numRows = Math.ceil(keys.length / numCols);
 
     return (
-      <table style={tableStyle} className="data-table">
+      <table style={styles.tableStyle}>
         <tbody>
           {[...Array(numRows)].map((_, rowIdx) => (
             <tr key={rowIdx}>
@@ -58,10 +26,10 @@ const DisplayedPallet = ({ item }) => {
 
                 return (
                   <React.Fragment key={key}>
-                    <td style={thStyle}>
-                      <span style={keyStyle}>{key}:</span>
+                    <td style={styles.thStyle}>
+                      <span style={styles.keyStyle}>{key}:</span>
                     </td>
-                    <td style={tdStyle}>{value}</td>
+                    <td style={styles.tdStyle}>{value}</td>
                   </React.Fragment>
                 );
               })}
@@ -73,10 +41,8 @@ const DisplayedPallet = ({ item }) => {
   };
 
   return (
-    <div style={popupStyle}>
-      <div style={tableContainerStyle} className="table-container">
-        {renderTable()}
-      </div>
+    <div style={styles.popupStyle}>
+      <div style={styles.tableContainerStyle}>{renderTable()}</div>
     </div>
   );
 };

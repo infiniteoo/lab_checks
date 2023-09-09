@@ -1,11 +1,12 @@
-import { useState, useEffect } from 'react'
-import LaboratoryTools from '../components/Laboratory/LaboratoryTools/LaboratoryTools'
-import { format } from 'date-fns' // Import date-fns format function
 import axios from 'axios'
-import LabCheckTracker from '../components/Laboratory/LabCheckTracker/LabCheckTracker'
+import { useState, useEffect } from 'react'
+import { format } from 'date-fns' // Import date-fns format function
 import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 import AutomationTaskbar from '../components/Laboratory/Automation/AutomationTaskbar'
+import LaboratoryTools from '../components/Laboratory/LaboratoryTools/LaboratoryTools'
+import LabCheckTracker from '../components/Laboratory/LabCheckTracker/LabCheckTracker'
+import { fetchLabRequests } from '../utils/fetchLabRequests'
+import 'react-toastify/dist/ReactToastify.css'
 
 export default function Lab() {
   const formattedDate = format(new Date(), 'HH:mm:ss MM/dd/yyyy')
@@ -17,69 +18,22 @@ export default function Lab() {
   const [hideClosed, setHideClosed] = useState(true)
   const [automationSwitch, setAutomationSwitch] = useState(false)
 
-  const fetchLabRequests = async () => {
-    try {
-      const response = await axios.get(
-        process.env.NEXT_PUBLIC_ENV === 'development'
-          ? 'http://localhost:8888/api/lab-requests'
-          : 'https://pallettest.com/api/lab-requests',
-      )
-
-      // if hideClosed is true, filter out closed requests from response.data
-
-      if (hideClosed === true) {
-        const filteredResponse = response.data.filter(
-          (labRequest) => labRequest.status !== 'Closed',
-        )
-
-        // display data so that the newest is at the top
-        filteredResponse.reverse()
-
-        // compared filteredResponse to existing labRequests and only update if different
-        if (JSON.stringify(filteredResponse) === JSON.stringify(labRequests)) {
-          console.log('items are the same, not updating')
-          return
-        } else {
-          // If different, update state
-          console.log('items are different, updating')
-
-          setLabRequests(filteredResponse) // Update state with fetched lab requests
-          setLabRequestsUpdated(true) // Signal that labRequests have been updated
-          return
-        }
-      } else {
-        response.data.reverse()
-        // compared response.data to existing labRequests and only update if different
-        if (JSON.stringify(response.data) === JSON.stringify(labRequests)) {
-          console.log('items are the same, not updating')
-          return
-        } else {
-          // If different, update state
-          console.log('items are different, updating')
-          setLabRequests(response.data) // Update state with fetched lab requests
-          setLabRequestsUpdated(true) // Signal that labRequests have been updated
-          return
-        }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchLabRequests(hideClosed)
+        setLabRequests(data)
+        setLabRequestsUpdated(true)
+      } catch (error) {
+        console.error('Error fetching lab requests:', error)
       }
-    } catch (error) {
-      console.error('Error fetching lab requests:', error)
     }
-  }
-
-  useEffect(() => {
-    fetchLabRequests()
+    fetchData()
   }, [])
-  useEffect(() => {
-    console.log('automationSwitch changed to: ', automationSwitch)
-  }, [automationSwitch])
 
   useEffect(() => {
-    fetchLabRequests()
-  }, [selectedLabRequest, selectedPallet])
-
-  useEffect(() => {
-    fetchLabRequests()
-  }, [hideClosed])
+    fetchLabRequests(hideClosed) // Pass hideClosed as a parameter
+  }, [selectedLabRequest, selectedPallet, hideClosed])
 
   useEffect(() => {
     if (labRequestsUpdated === true) {
@@ -97,6 +51,7 @@ export default function Lab() {
     // Cleanup the interval on unmount
     return () => clearInterval(interval)
   }, [])
+
   return (
     <>
       <div className="flex min-h-screen flex-col items-center justify-start p-24">
