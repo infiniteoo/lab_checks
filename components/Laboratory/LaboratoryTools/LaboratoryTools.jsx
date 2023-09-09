@@ -1,12 +1,10 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 
 import DisplayedPallet from "./DisplayedPallet";
-import "./LaboratoryTools.css";
 
 const LaboratoryTools = ({
   displayedPallet,
-  setDisplayedPallet,
   selectedPallet,
   setSelectedPallet,
   selectedLabRequest,

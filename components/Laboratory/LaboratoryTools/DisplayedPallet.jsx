@@ -35,7 +35,6 @@ const DisplayedPallet = ({ item }) => {
   const keyStyle = {
     fontWeight: "bold",
   };
-
   const renderTable = () => {
     const filteredItems = Object.entries(item).filter(
       ([, value]) => value !== null && value !== undefined

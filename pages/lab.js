@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
-import LaboratoryTools from '../components/Laboratory/LaboratoryTools'
+import LaboratoryTools from '../components/Laboratory/LaboratoryTools/LaboratoryTools'
 import { format } from 'date-fns' // Import date-fns format function
 import axios from 'axios'
-import LabCheckTracker from '../components/Laboratory/LabCheckTracker'
+import LabCheckTracker from '../components/Laboratory/LabCheckTracker/LabCheckTracker'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import AutomationTaskbar from '../components/Laboratory/Automation/AutomationTaskbar'
@@ -16,6 +16,7 @@ export default function Lab() {
   const [selectedLabRequest, setSelectedLabRequest] = useState([])
   const [hideClosed, setHideClosed] = useState(true)
   const [automationSwitch, setAutomationSwitch] = useState(false)
+
   const fetchLabRequests = async () => {
     try {
       const response = await axios.get(
@@ -25,11 +26,12 @@ export default function Lab() {
       )
 
       // if hideClosed is true, filter out closed requests from response.data
-      console.log('in fetchLabRequests hideClosed is: ', hideClosed)
+
       if (hideClosed === true) {
         const filteredResponse = response.data.filter(
           (labRequest) => labRequest.status !== 'Closed',
         )
+
         // display data so that the newest is at the top
         filteredResponse.reverse()
 

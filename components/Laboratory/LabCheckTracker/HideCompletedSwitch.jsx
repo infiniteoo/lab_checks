@@ -1,11 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
-const HideCompletedSwitch = ({
-  labRequests,
-  setLabRequests,
-  hideClosed,
-  setHideClosed,
-}) => {
+const HideCompletedSwitch = ({ hideClosed, setHideClosed }) => {
   const toggleSwitch = () => {
     if (hideClosed === true) {
       setHideClosed(false);

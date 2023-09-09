@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Papa from "papaparse"; // You need to install the papaparse library
 import RequestedLPN from "./RequestedLPN";
-import AdditionalLPNs from "./AdditionalLPNs";
+import AdditionalLPNsInput from "./AdditionalLPNsInput";
 import SubmitLabRequest from "./SubmitLabRequest";
 import EnterOrderNumber from "./EnterOrderNumber";
 import uuid from "uuid-with-v6";
@@ -112,7 +112,7 @@ const NewLabRequest = ({
         )}
 
         {fileSelected && (
-          <AdditionalLPNs setCsvData={setCsvData} csvData={csvData} />
+          <AdditionalLPNsInput setCsvData={setCsvData} csvData={csvData} />
         )}
       </div>
       {fileSelected && (

@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-const AdditionalLPNs = ({ csvData, setCsvData }) => {
+const AdditionalLPNsInput = ({ csvData, setCsvData }) => {
   const [inputValue, setInputValue] = useState("");
 
   const handleInputChange = (e) => {
@@ -53,4 +53,4 @@ const AdditionalLPNs = ({ csvData, setCsvData }) => {
   );
 };
 
-export default AdditionalLPNs;
+export default AdditionalLPNsInput;
