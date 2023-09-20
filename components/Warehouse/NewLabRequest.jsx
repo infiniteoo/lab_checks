@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Papa from "papaparse"; // You need to install the papaparse library
 import RequestedLPN from "./RequestedLPN";
-import AdditionalLPNsInput from "./AdditionalLPNsInput";
+import AdditionalLPNsInput from "./AdditionalLPNs";
 import SubmitLabRequest from "./SubmitLabRequest";
 import EnterOrderNumber from "./EnterOrderNumber";
 import uuid from "uuid-with-v6";
