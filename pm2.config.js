@@ -5,6 +5,7 @@ module.exports = {
       script: 'npm',
       args: 'run dev', // Run Next.js in development mode. Use 'start' for production
       watch: true,
+      ignore_watch: ['node_modules'],
       env: {
         NODE_ENV: 'development',
       },
@@ -14,6 +15,7 @@ module.exports = {
       script: 'server/index.js',
       args: '',
       watch: true,
+      ignore_watch: ['node_modules'],
       env: {
         NODE_ENV: 'development',
         PORT: 8888, // Assuming your backend runs on port 5000
