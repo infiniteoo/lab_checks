@@ -11,7 +11,8 @@ module.exports = {
     },
     {
       name: 'back',
-      script: 'nodemon server/index.js',
+      script: 'nodemon',
+      args: 'server/index.js',
       watch: true,
       env: {
         NODE_ENV: 'development',
