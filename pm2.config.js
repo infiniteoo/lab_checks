@@ -5,7 +5,7 @@ module.exports = {
       script: 'npm',
       args: 'start',
       cwd: '/var/www/html', // Change this to the absolute path of your project
-      instances: max,
+      instances: 'max',
       autorestart: true,
       watch: false,
       max_memory_restart: '1G',
