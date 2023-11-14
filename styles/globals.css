@@ -18,26 +18,28 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
+  background: linear-gradient(to bottom,
       transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
 }
+
 /* Add this CSS to your global CSS file or a component-specific CSS file */
 
 @keyframes shimmer {
   0% {
     background-position: -200px 0;
   }
+
   100% {
     background-position: 200px 0;
   }
 }
 
 .selected-pallet {
-  border: 2px solid red; /* Add a border to highlight the selected pallet */
-  box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5); /* Add a shadow for emphasis */
-  background-color: #f0f0f0; /* Change the background color */
+  border: 2px solid red;
+  /* Add a border to highlight the selected pallet */
+  box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5);
+  /* Add a shadow for emphasis */
+  background-color: #f0f0f0;
+  /* Change the background color */
 }

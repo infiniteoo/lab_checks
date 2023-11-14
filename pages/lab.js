@@ -1,56 +1,55 @@
-import axios from 'axios'
-import { useState, useEffect } from 'react'
-import { format } from 'date-fns' // Import date-fns format function
-import { ToastContainer, toast } from 'react-toastify'
-import AutomationTaskbar from '../components/Laboratory/Automation/AutomationTaskbar'
-import LaboratoryTools from '../components/Laboratory/LaboratoryTools/LaboratoryTools'
-import LabCheckTracker from '../components/Laboratory/LabCheckTracker/LabCheckTracker'
-import { fetchLabRequests } from '../utils/fetchLabRequests'
-import 'react-toastify/dist/ReactToastify.css'
+import { useState, useEffect } from "react";
+import { format } from "date-fns"; // Import date-fns format function
+import { ToastContainer, toast } from "react-toastify";
+import AutomationTaskbar from "../components/Laboratory/Automation/AutomationTaskbar";
+import LaboratoryTools from "../components/Laboratory/LaboratoryTools/LaboratoryTools";
+import LabCheckTracker from "../components/Laboratory/LabCheckTracker/LabCheckTracker";
+import { fetchLabRequests } from "../utils/fetchLabRequests";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Lab() {
-  const formattedDate = format(new Date(), 'HH:mm:ss MM/dd/yyyy')
-  const [labRequests, setLabRequests] = useState([])
-  const [labRequestsUpdated, setLabRequestsUpdated] = useState(false)
-  const [displayedPallet, setDisplayedPallet] = useState([])
-  const [selectedPallet, setSelectedPallet] = useState([])
-  const [selectedLabRequest, setSelectedLabRequest] = useState([])
-  const [hideClosed, setHideClosed] = useState(true)
-  const [automationSwitch, setAutomationSwitch] = useState(false)
+  const formattedDate = format(new Date(), "HH:mm:ss MM/dd/yyyy");
+  const [labRequests, setLabRequests] = useState([]);
+  const [labRequestsUpdated, setLabRequestsUpdated] = useState(false);
+  const [displayedPallet, setDisplayedPallet] = useState([]);
+  const [selectedPallet, setSelectedPallet] = useState([]);
+  const [selectedLabRequest, setSelectedLabRequest] = useState([]);
+  const [hideClosed, setHideClosed] = useState(true);
+  const [automationSwitch, setAutomationSwitch] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await fetchLabRequests(hideClosed)
-        setLabRequests(data)
-        setLabRequestsUpdated(true)
+        const data = await fetchLabRequests(hideClosed);
+        setLabRequests(data);
+        setLabRequestsUpdated(true);
       } catch (error) {
-        console.error('Error fetching lab requests:', error)
+        console.error("Error fetching lab requests:", error);
       }
-    }
-    fetchData()
-  }, [])
+    };
+    fetchData();
+  }, []);
 
   useEffect(() => {
-    fetchLabRequests(hideClosed) // Pass hideClosed as a parameter
-  }, [selectedLabRequest, selectedPallet, hideClosed])
+    fetchLabRequests(hideClosed); // Pass hideClosed as a parameter
+  }, [selectedLabRequest, selectedPallet, hideClosed]);
 
   useEffect(() => {
     if (labRequestsUpdated === true) {
       // Reset the labRequestsUpdated state variable
-      setLabRequestsUpdated(false)
+      setLabRequestsUpdated(false);
     }
-  }, [labRequests, labRequestsUpdated])
+  }, [labRequests, labRequestsUpdated]);
 
   // Periodically check for updates
   useEffect(() => {
     const interval = setInterval(() => {
-      fetchLabRequests()
-    }, 30000) // 5 minutes (adjust the interval as needed)
+      fetchLabRequests();
+    }, 30000); // 5 minutes (adjust the interval as needed)
 
     // Cleanup the interval on unmount
-    return () => clearInterval(interval)
-  }, [])
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <>
@@ -102,5 +101,5 @@ export default function Lab() {
         </div>
       </div>
     </>
-  )
+  );
 }

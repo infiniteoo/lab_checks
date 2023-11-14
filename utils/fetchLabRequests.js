@@ -5,7 +5,7 @@ export const fetchLabRequests = async (hideClosed) => {
   try {
     const response = await axios.get(
       process.env.NEXT_PUBLIC_ENV === "development"
-        ? "/api/lab-requests"
+        ? "/api/lab-requests/lab-requests"
         : "https://pallettest.com/api/lab-requests"
     );
 

@@ -1,5 +1,4 @@
 import supabase from "../../../supabase";
-const LabRequest = require("../../../server/models/labRequest"); // Import the LabRequest model
 
 export default async function handler(req, res) {
   // depending on the test results, update the lab request
@@ -11,15 +10,24 @@ export default async function handler(req, res) {
     const dateCompleted = new Date();
     const testResultAcknowledgement = false;
 
-    const updatedLabRequest = await LabRequest.findByIdAndUpdate(
-      labRequestId,
-      {
-        status: testResults,
-        dateCompleted: dateCompleted,
-        testResultAcknowledgement: testResultAcknowledgement,
-      },
-      { new: true }
-    );
+    const { data: updatedLabRequest, error } = await supabase
+      .from("lab_requests")
+      .upsert([
+        {
+          id: labRequestId,
+          status: testResults,
+          dateCompleted: dateCompleted.toISOString(),
+          testResultAcknowledgement: testResultAcknowledgement,
+        },
+      ]);
+
+    if (error) {
+      console.error("Error updating lab request:", error);
+      res.status(500).json({
+        error: "Failed to update lab request",
+      });
+      return;
+    }
 
     res.json({
       message: "Lab request updated successfully",

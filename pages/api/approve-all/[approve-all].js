@@ -1,5 +1,4 @@
 import supabase from "../../../supabase";
-const LabRequest = require("../../../server/models/labRequest"); // Import the LabRequest model
 
 export default async function handler(req, res) {
   console.log("req.body", req.body);
@@ -8,19 +7,36 @@ export default async function handler(req, res) {
     console.log("labRequestId", labRequestId);
 
     // Update the lab request with the given ID
-    const updatedLabRequest = await LabRequest.findByIdAndUpdate(
-      labRequestId,
-      {
-        testResults: "Passed",
-      },
-      { new: true }
-    );
+    const { data: updatedLabRequest, error: updateError } = await supabase
+      .from("lab_requests")
+      .upsert([
+        {
+          id: labRequestId,
+          testResults: "Passed",
+        },
+      ]);
+
+    if (updateError) {
+      console.error("Error updating lab request:", updateError);
+      res.status(500).json({
+        error: "Failed to update lab request",
+      });
+      return;
+    }
 
     // Update all items in the lab request to have "Passed" testResults
-    await LabRequest.updateMany(
-      { _id: labRequestId },
-      { $set: { "items.$[].testResults": "Passed" } }
-    );
+    const { data: updateManyData, error: updateManyError } = await supabase
+      .from("lab_requests")
+      .update({ "items.testResults": "Passed" })
+      .match({ id: labRequestId });
+
+    if (updateManyError) {
+      console.error("Error updating lab request items:", updateManyError);
+      res.status(500).json({
+        error: "Failed to update lab request items",
+      });
+      return;
+    }
 
     res.json({
       message: "Lab request and items updated successfully",

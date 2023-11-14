@@ -53,7 +53,7 @@ const LabCheckTracker = ({
       <ul className="mt-4">
         {labRequests &&
           labRequests.map((labRequest, index) => {
-            const timeAgo = getTimeAgoInMinutes(labRequest.dateCreated);
+            const timeAgo = getTimeAgoInMinutes(labRequest.created_at);
             let statusBackgroundColor = "";
             let statusHighlight = "";
             let statusFontColor = "";
@@ -115,7 +115,7 @@ const LabCheckTracker = ({
                         Order #: {labRequest.orderNumber}
                       </h3>
                       <h3 className="items-left">
-                        Submitted: {labRequest.dateCreated}
+                        Submitted: {labRequest.created_at}
                       </h3>
                       <h3 className="items-left">
                         Shipment:{" "}
@@ -135,7 +135,7 @@ const LabCheckTracker = ({
                       >
                         Requested:{" "}
                         <span className="text-bold">
-                          {getTimeAgo(labRequest.dateCreated)}{" "}
+                          {getTimeAgo(labRequest.created_at)}{" "}
                         </span>
                       </h3>
                       <div
