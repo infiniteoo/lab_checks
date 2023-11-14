@@ -20,7 +20,6 @@
   <h3 align="center">Pallet Test</h3>
 
   <p align="center">
-    An awesome README template to jumpstart your projects!
     <br />
     <a href="https://github.com/infiniteoo/lab_checks"><strong>Explore the docs »</strong></a>
     <br />
