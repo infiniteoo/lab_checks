@@ -1,4 +1,4 @@
-import supabase from "../../../supabase";
+import { supabase } from "../../../supabase";
 
 export default async function handler(req, res) {
   try {
@@ -6,21 +6,45 @@ export default async function handler(req, res) {
     const labRequestId = req.body.id; // The ID of the Lab Request to update
     const lpnToMatch = req.body.lpn; // The LPN to match within the Lab Request
 
-    // Update the matching item within the specified Lab Request
-    const { data: result, error } = await supabase
+    // Retrieve the current Lab Request
+    const { data: existingLabRequest, error: fetchError } = await supabase
       .from("lab_requests")
-      .update({
-        "items:testResults": "Passed",
-        "items:status": "Approved",
-        "items:dateApproved": new Date().toISOString(),
-      })
-      .match({
-        id: labRequestId,
-        "items:LPN": lpnToMatch,
-      });
+      .select("*")
+      .eq("_id", labRequestId)
+      .single();
 
-    if (error) {
-      console.error("Error updating selected item:", error);
+    if (fetchError) {
+      console.error("Error fetching lab request:", fetchError);
+      res.status(500).json({
+        error: "Failed to fetch lab request",
+      });
+      return;
+    }
+
+    // Update the matching item within the Lab Request's 'items' array
+    const updatedItems = existingLabRequest.items.map((item) =>
+      item.LPN === lpnToMatch
+        ? {
+            ...item,
+            testResults: "Passed",
+            status: "Approved",
+            dateApproved: new Date().toISOString(),
+          }
+        : item
+    );
+
+    // Update the Lab Request with the modified 'items' array
+    const { data: result, error: updateError } = await supabase
+      .from("lab_requests")
+      .upsert([
+        {
+          _id: labRequestId,
+          items: updatedItems,
+        },
+      ]);
+
+    if (updateError) {
+      console.error("Error updating selected item:", updateError);
       res.status(500).json({
         error: "Failed to update selected item",
       });

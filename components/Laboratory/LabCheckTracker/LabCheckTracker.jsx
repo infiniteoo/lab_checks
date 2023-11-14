@@ -34,7 +34,7 @@ const LabCheckTracker = ({
   const handlePassAll = async () => {
     const result = await axios.post(
       process.env.NEXT_PUBLIC_ENV === "development"
-        ? `/api/approve-all`
+        ? `/api/approve-all/approve-all`
         : `https://pallettest.com/api/approve-all`,
       {
         id: selectedLabRequest._id,
@@ -56,7 +56,7 @@ const LabCheckTracker = ({
   const handleDenyAll = async () => {
     const result = await axios.post(
       process.env.NEXT_PUBLIC_ENV === "development"
-        ? `/api/deny-all`
+        ? `/api/deny-all/deny-all`
         : `https://pallettest.com/api/deny-all`,
       {
         id: selectedLabRequest._id,
@@ -78,7 +78,7 @@ const LabCheckTracker = ({
   const handlePassSelected = async () => {
     const result = await axios.post(
       process.env.NEXT_PUBLIC_ENV === "development"
-        ? `/api/pass-selected`
+        ? `/api/pass-selected/pass-selected`
         : `https://pallettest.com/api/pass-selected`,
       {
         lpn: selectedPallet.item.LPN,
@@ -101,7 +101,7 @@ const LabCheckTracker = ({
   const handleDenySelected = async () => {
     const result = await axios.post(
       process.env.NEXT_PUBLIC_ENV === "development"
-        ? `/api/deny-selected`
+        ? `/api/deny-selected/deny-selected`
         : `https://pallettest.com/api/deny-selected`,
       {
         lpn: selectedPallet.item.LPN,
@@ -157,7 +157,7 @@ const LabCheckTracker = ({
 
     const result = await axios.post(
       process.env.NEXT_PUBLIC_ENV === "development"
-        ? `/api/finalize-results`
+        ? `/api/finalize-results/finalize-results`
         : `https://pallettest.com/api/finalize-results`,
       {
         id: selectedLabRequest._id,
@@ -260,7 +260,7 @@ const LabCheckTracker = ({
                   >
                     Requested:{" "}
                     <span className="text-bold">
-                      {getTimeAgo(labRequest.dateCreated)}{" "}
+                      {getTimeAgo(labRequest.created_at)}{" "}
                     </span>
                   </h3>
                   <div

@@ -3,8 +3,8 @@ import Link from "next/link";
 
 export default function Splash() {
   return (
-    <div className="bg-white dark:bg-gray-900">
-      <div className="flex justify-center h-screen">
+    <div className="bg-white dark:bg-gray-900 w-100 h-100">
+      <div className="flex justify-center h-screen w-screen">
         <div
           className="hidden bg-cover lg:block lg:w-full"
           style={{
@@ -12,7 +12,7 @@ export default function Splash() {
           }}
         ></div>
 
-        <div className="flex flex-col items-center justify-center h-screen mx-10 ">
+        <div className="flex flex-col items-center justify-center  bg-gray-200">
           <div className="">
             <h1 className="text-7xl mb-4">
               <div className="flex flex-col justify-start">
@@ -27,7 +27,7 @@ export default function Splash() {
               </div>
             </h1>
           </div>
-          <h2 className="text-xl text-gray-600 mb-8">
+          <h2 className="text-xl text-gray-600 mb-8 ml-5">
             fully automated warehouse-to-Laboratory testing
           </h2>
           {/* Header Image */}
@@ -39,7 +39,7 @@ export default function Splash() {
           />
           <h2 className="text-2xl text-gray-600 mb-8">Choose Your Division</h2>
           {/* Buttons */}
-          <div className="flex space-x-4">
+          <div className="flex space-x-4 mb-3">
             {/* Warehouse Button */}
             <Link href="/warehouse">
               <div className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-4 px-6 rounded-full transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer">

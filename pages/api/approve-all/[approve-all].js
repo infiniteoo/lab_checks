@@ -11,7 +11,7 @@ export default async function handler(req, res) {
       .from("lab_requests")
       .upsert([
         {
-          id: labRequestId,
+          _id: labRequestId,
           testResults: "Passed",
         },
       ]);
