@@ -179,7 +179,7 @@ const LabCheckTracker = ({
 
                               let response = await axios.post(
                                 process.env.NEXT_PUBLIC_ENV === "development"
-                                  ? `http://localhost:8888/api/update/${labRequest._id}`
+                                  ? `/api/update/${labRequest._id}`
                                   : `https://pallettest.com/api/update/${labRequest._id}`,
                                 {
                                   testResultAcknowledgement: true,
