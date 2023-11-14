@@ -1,12 +1,14 @@
-import supabase from "../../../supabase";
+import { supabase } from "../../../supabase";
 
 export default async function handler(req, res) {
   // Update the lab request with the given id
   try {
-    const labRequestId = req.params["labrequestid"];
+    console.log("hello from update lab request, req.body", req.body);
+    console.log("req.params", req.query);
+    const labRequestId = req.query.update;
     const updatedLabRequest = await supabase.from("lab_requests").upsert([
       {
-        id: labRequestId,
+        _id: labRequestId,
         ...req.body,
       },
     ]);
