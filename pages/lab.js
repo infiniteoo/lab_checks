@@ -53,7 +53,7 @@ export default function Lab() {
 
   return (
     <>
-      <div className="flex min-h-screen flex-col items-center justify-start p-24">
+      <div className="flex min-h-screen flex-col items-center justify-start p-24 bg-gray-300">
         <div className="flex flex-row items-center justify-center">
           <div className="flex flex-col items-left justify-center">
             <h1 className="text-5xl font-bold text-right">

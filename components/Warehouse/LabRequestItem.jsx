@@ -5,7 +5,7 @@ import uuid from "uuid-with-v6";
 const LabRequestExpandedItem = ({ labRequests, labRequest }) => {
   return (
     <div className="flex flex-col items-center">
-      <ul className="mt-2 flex flex-wrap justify-center items-stretch">
+      <ul className="mt-2 flex flex-wrap justify-center items-stretch text-black">
         {labRequests &&
           labRequests.map((item, index) => {
             let backgroundColor = "";
@@ -28,7 +28,7 @@ const LabRequestExpandedItem = ({ labRequests, labRequest }) => {
             return (
               <li
                 key={`${item.id}` + "-" + uuid.v6()}
-                className="mb-1 mr-1 m-1 z-1"
+                className="mb-1 mr-1 m-1 z-1 "
                 style={{ backgroundColor }}
               >
                 <RequestedLPN
