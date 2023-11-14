@@ -65,11 +65,6 @@ After the lab finishes, the warehouse can acknowledge the lab's results:
 
   <img src="./public/pt5.png" alt="Logo" width="100%" height="100%">
 
-
-- **Customizable Tests:** Tailor the testing criteria to meet your specific requirements. Define parameters, thresholds, and acceptance criteria for different types of pallets.
-- **Real-time Monitoring:** Gain insights into the testing progress and results in real-time. Track the status of each pallet as it undergoes testing.
-- **Reporting:** Generate detailed reports for compliance documentation and analysis. Export reports in various formats for easy sharing and integration into your workflow.
-
 ## Getting Started
 
 - clone the repository
