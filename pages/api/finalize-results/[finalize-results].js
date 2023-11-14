@@ -1,4 +1,4 @@
-import supabase from "../../../supabase";
+import { supabase } from "../../../supabase";
 
 export default async function handler(req, res) {
   // depending on the test results, update the lab request
@@ -9,17 +9,22 @@ export default async function handler(req, res) {
     const testResults = req.body.status;
     const dateCompleted = new Date();
     const testResultAcknowledgement = false;
+    console.log("req.body", req.body);
+
+    let whichDate = testResults === "Approved" ? "dateApproved" : "dateDenied";
+    console.log("whichDate", whichDate);
+
+    const updateData = {
+      _id: labRequestId,
+      status: testResults,
+      [whichDate]: dateCompleted.toISOString(),
+      testResultAcknowledgement: testResultAcknowledgement,
+    };
 
     const { data: updatedLabRequest, error } = await supabase
       .from("lab_requests")
-      .upsert([
-        {
-          _id: labRequestId,
-          status: testResults,
-          dateCompleted: dateCompleted.toISOString(),
-          testResultAcknowledgement: testResultAcknowledgement,
-        },
-      ]);
+      .upsert([updateData])
+      .select("*");
 
     if (error) {
       console.error("Error updating lab request:", error);

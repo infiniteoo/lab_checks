@@ -1,4 +1,4 @@
-import supabase from "../../../supabase";
+import { supabase } from "../../../supabase";
 
 export default async function handler(req, res) {
   console.log("req.body", req.body);
@@ -6,7 +6,22 @@ export default async function handler(req, res) {
     const labRequestId = req.body.id;
     console.log("labRequestId", labRequestId);
 
-    // Update the lab request with the given ID
+    // Retrieve the current Lab Request
+    const { data: existingLabRequest, error: fetchError } = await supabase
+      .from("lab_requests")
+      .select("*")
+      .eq("_id", labRequestId)
+      .single();
+
+    if (fetchError) {
+      console.error("Error fetching lab request:", fetchError);
+      res.status(500).json({
+        error: "Failed to fetch lab request",
+      });
+      return;
+    }
+
+    // Update the Lab Request with the modified 'testResults'
     const { data: updatedLabRequest, error: updateError } = await supabase
       .from("lab_requests")
       .upsert([
@@ -25,10 +40,20 @@ export default async function handler(req, res) {
     }
 
     // Update all items in the lab request to have "Passed" testResults
+    const updatedItems = existingLabRequest.items.map((item) => ({
+      ...item,
+      testResults: "Passed",
+    }));
+
+    // Update the Lab Request with the modified 'items' array
     const { data: updateManyData, error: updateManyError } = await supabase
       .from("lab_requests")
-      .update({ "items.testResults": "Passed" })
-      .match({ id: labRequestId });
+      .upsert([
+        {
+          _id: labRequestId,
+          items: updatedItems,
+        },
+      ]);
 
     if (updateManyError) {
       console.error("Error updating lab request items:", updateManyError);
