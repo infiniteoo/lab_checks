@@ -14,14 +14,17 @@ export default async function handler(req, res) {
     }
   } else if (req.method === "POST") {
     // Create a new row in the lab_requests table with req.body data
-    const { data, error } = await supabase.from("lab_requests").upsert([
-      {
-        items: req.body,
-        orderNumber: req.body[0].orderNumber,
-        testResults: "Pending",
-        testResultAcknowledgement: false,
-      },
-    ]);
+    const { data, error } = await supabase
+      .from("lab_requests")
+      .upsert([
+        {
+          items: req.body,
+          orderNumber: req.body[0].orderNumber,
+          testResults: "Pending",
+          testResultAcknowledgement: false,
+        },
+      ])
+      .select("*");
 
     if (error) {
       console.error("Error saving lab request:", error);

@@ -32,19 +32,21 @@ const SubmitLabRequest = ({
           : "https://pallettest.com/api/lab-requests",
         csvData
       );
+      if (result) {
+        console.log("result", result);
+        setLabRequestsUpdated(true);
 
-      setLabRequestsUpdated(true);
+        setLabRequests((prevLabRequests) => [
+          ...prevLabRequests,
+          result.data.result[0],
+        ]);
+        setCsvData([]); // Clear the csvData
+        setFileSelected(false);
+        setOrderNumber("");
 
-      setLabRequests((prevLabRequests) => [
-        ...prevLabRequests,
-        result.data.result,
-      ]);
-      setCsvData([]); // Clear the csvData
-      setFileSelected(false);
-      setOrderNumber("");
-
-      // Display a success message
-      toast.success("Lab request submitted successfully!");
+        // Display a success message
+        toast.success("Lab request submitted successfully!");
+      }
     } catch (error) {
       // Display an error message if the request fails
       toast.error("Failed to submit lab request. Please try again later.");

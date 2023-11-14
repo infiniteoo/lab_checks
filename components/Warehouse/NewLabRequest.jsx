@@ -88,7 +88,7 @@ const NewLabRequest = ({
           />
         )}
         {!fileSelected ? (
-          <label className="w-1/4 py-2 px-4 border rounded focus:outline-none focus:ring focus:border-blue-300 cursor-pointer mt-2 bg-green-500 text-center">
+          <label className="w-1/2 py-2 px-4 border rounded focus:outline-none focus:ring focus:border-blue-300 cursor-pointer mt-2 bg-green-500 text-center">
             <span className="text-white">Open CSV file</span>
             <input
               type="file"
